@@ -1,6 +1,7 @@
 import os
-import requests
 import re
+
+import requests
 
 
 def get_projects(token, username):
@@ -13,14 +14,15 @@ def get_projects(token, username):
     for repo in response.json():
         # Only include repos with Pages, excluding the main index repo itself
         if repo.get("has_pages") and repo["name"] != f"{username}.github.io":
-            name = repo["name"].replace("-", " ").title()
+            # Formatting the name: replacing dashes with spaces and title casing
+            display_name = repo["name"].replace("-", " ").title()
             link = f"https://{username}.github.io/{repo['name']}/"
             desc = repo["description"] or "No description provided."
             lang = repo["language"] or "Web"
 
             card = f"""
             <a href="{link}" class="card">
-                <h3>{name}</h3>
+                <h3>{display_name}</h3>
                 <p>{desc}</p>
                 <span class="tag">{lang}</span>
             </a>"""
@@ -35,12 +37,17 @@ def update_html(cards):
     start_marker = ""
     end_marker = ""
 
-    new_content = re.sub(
-        f"{start_marker}.*?{end_marker}",
-        f"{start_marker}\n{''.join(cards)}\n{end_marker}",
-        content,
-        flags=re.DOTALL,
+    # We use a non-greedy regex to find exactly what is between the existing markers
+    # and replace it ONLY with the new cards, preserving the markers themselves.
+    pattern = re.compile(
+        f"{re.escape(start_marker)}.*?{re.escape(end_marker)}", re.DOTALL
     )
+
+    # The replacement string must include the markers on the outside
+    # so they remain in the file for the next run.
+    replacement_text = f"{start_marker}\n{''.join(cards)}\n{end_marker}"
+
+    new_content = pattern.sub(replacement_text, content)
 
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(new_content)
