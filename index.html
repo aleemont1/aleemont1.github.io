@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alessandro Monticelli - Project Index</title>
+    <title>Alessandro Monticelli - Portfolio</title>
     <style>
         :root {
             --bg: #0d1117;
@@ -22,25 +22,27 @@
         }
         .container { max-width: 1000px; margin: 0 auto; }
         .header { text-align: center; margin-bottom: 50px; }
-        .header h1 { margin-bottom: 10px; }
+        .header h1 { margin-bottom: 10px; color: var(--accent); }
         .header p { color: #8b949e; font-style: italic; }
         
-        /* Stats Section Styling */
-        .stats-container { margin-bottom: 60px; text-align: center; }
-        .stats-container h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 30px; }
-        .stats-display { 
+        section { margin-bottom: 60px; }
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 30px; text-align: center; color: #fff; }
+
+        /* Stats & Contribution Styling */
+        .stats-grid { 
             display: flex; 
-            justify-content: center; 
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
-        .stats-display img { 
+        .stats-grid img { 
             width: 100%;
-            max-width: 600px; 
+            max-width: 800px; 
             height: auto; 
             border-radius: 6px;
         }
 
         /* Projects Grid Styling */
-        .projects-header { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 30px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         .card { 
             background: var(--card-bg); 
@@ -63,6 +65,7 @@
             border-radius: 12px; 
             border: 1px solid var(--border); 
             align-self: flex-start;
+            color: var(--accent);
         }
     </style>
 </head>
@@ -72,25 +75,20 @@
             <h1>Alessandro Monticelli</h1>
             <p>Embedded Software Engineer | Computer Engineering MSc</p>
         </div>
-     
-        <section>
-            <h2 class="projects-header">My Projects</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Getting Started</h3>
-                    <p>Your automated project list will appear here once your update_index.py script runs via GitHub Actions.</p>
-                    <span class="tag">Setup</span>
-                </div>
-                </div>
-        </section>
 
-        <section class="stats-container">
-            <h2>GitHub Statistics</h2>
-            <div class="stats-display">
-                <img src="https://raw.githubusercontent.com/aleemont1/aleemont1/main/images/userstats.svg" alt="Alessandro Monticelli - GitHub Stats" />
+        <section>
+            <h2>GitHub Activity & Stats</h2>
+            <div class="stats-grid">
+                <img src="https://raw.githubusercontent.com/aleemont1/aleemont1/main/images/contribs.svg" alt="GitHub Contributions" />
+                <img src="https://raw.githubusercontent.com/aleemont1/aleemont1/main/images/userstats.svg" alt="GitHub Statistics" />
             </div>
         </section>
-
+        
+        <section>
+            <h2>My Projects</h2>
+            <div class="grid">
+</div>
+        </section>
     </div>
 </body>
 </html>
