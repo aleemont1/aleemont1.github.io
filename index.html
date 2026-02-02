@@ -1,1 +1,96 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alessandro Monticelli - Project Index</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --accent: #58a6ff;
+            --border: #30363d;
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            padding: 40px 20px; 
+            margin: 0; 
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 50px; }
+        .header h1 { margin-bottom: 10px; }
+        .header p { color: #8b949e; font-style: italic; }
+        
+        /* Stats Section Styling */
+        .stats-container { margin-bottom: 60px; text-align: center; }
+        .stats-container h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 30px; }
+        .stats-display { 
+            display: flex; 
+            justify-content: center; 
+        }
+        .stats-display img { 
+            width: 100%;
+            max-width: 600px; 
+            height: auto; 
+            border-radius: 6px;
+        }
+
+        /* Projects Grid Styling */
+        .projects-header { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border); 
+            border-radius: 6px; 
+            padding: 20px; 
+            text-decoration: none; 
+            color: inherit; 
+            transition: border-color 0.3s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .card h3 { margin: 0 0 10px 0; color: var(--accent); }
+        .card p { font-size: 0.9em; color: #8b949e; margin-bottom: 15px; flex-grow: 1; }
+        .tag { 
+            font-size: 0.8em; 
+            background: #21262d; 
+            padding: 4px 8px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Alessandro Monticelli</h1>
+            <p>Embedded Software Engineer | Computer Engineering MSc</p>
+        </div>
+     
+        <section>
+            <h2 class="projects-header">My Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Getting Started</h3>
+                    <p>Your automated project list will appear here once your update_index.py script runs via GitHub Actions.</p>
+                    <span class="tag">Setup</span>
+                </div>
+                </div>
+        </section>
+
+        <section class="stats-container">
+            <h2>GitHub Statistics</h2>
+            <div class="stats-display">
+                <img src="https://raw.githubusercontent.com/aleemont1/aleemont1/main/images/userstats.svg" alt="Alessandro Monticelli - GitHub Stats" />
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
