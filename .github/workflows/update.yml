@@ -4,14 +4,14 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *' # Midnight run
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
-    # QUESTA SEZIONE È CRUCIALE PER EVITARE L'ERRORE 403
+    # THIS IS MANDATORY
     permissions:
       contents: write
       
@@ -35,7 +35,5 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          # Stage files
           git add index.html
-          # Commit only if changes exist
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update project index" && git push)
