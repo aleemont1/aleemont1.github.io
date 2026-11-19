@@ -12,22 +12,23 @@
 
   {% for para in project.detail.intro %}<p>{{ para }}</p>{% endfor %}
   {{ m.project_links(project, ui, icon, prefix, with_detail=false) }}
-
-  {% if project.detail.get("facts") %}
-  <div class="hw{{ ' with-photo' if project.detail.get('photo') }}">
-    {% if project.detail.get("photo") %}{{ m.photo(project.detail.photo) }}{% endif %}
-    <table class="facts">
-      {% for f in project.detail.facts %}<tr><th scope="row">{{ f.k }}</th><td>{{ f.v }}</td></tr>{% endfor %}
-    </table>
-  </div>
-  {% endif %}
-
-  {{ m.diagram(project.detail.diagram, lang, project.caption) }}
+  {% if project.detail.get("photo") %}{{ m.photo(project.detail.photo) }}{% endif %}
+  {% if project.detail.get("diagram") %}{{ m.diagram(project.detail.diagram, lang, project.caption) }}{% endif %}
 
   {% for s in project.detail.sections %}
   <h2>{{ s.heading }}</h2>
   {% for para in s.body %}<p>{{ para }}</p>{% endfor %}
+  {% if s.get("facts") %}
+  <div class="hw{{ ' with-photo' if s.get('image') }}">
+    {% if s.get("image") %}{{ m.photo(s.image) }}{% endif %}
+    <table class="facts">
+      {% for f in s.facts %}<tr><th scope="row">{{ f.k }}</th><td>{{ f.v }}</td></tr>{% endfor %}
+    </table>
+  </div>
+  {% else %}
+  {% if s.get("diagram") %}{{ m.diagram(s.diagram, lang, s.caption) }}{% endif %}
   {% if s.get("image") %}{{ m.photo(s.image) }}{% endif %}
+  {% endif %}
   {% if s.get("chart") %}{{ m.bar_chart(c.charts[s.chart], num) }}{% endif %}
   {% endfor %}
 

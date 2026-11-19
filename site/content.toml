@@ -113,11 +113,11 @@ not_found_home = "Torna alla home"
 [intro]
 body = { en = [
   "I write embedded software: mostly C++ on ESP32s, mostly for things that are supposed to fly.",
-  "I lead the avionics software of Aurora Rocketry, the University of Bologna's student rocketry team, and I do research on moving large amounts of data over LoRa without wasting airtime. I'm doing an MSc in Computer Science and Engineering in Bologna, and I spent the spring of 2026 on Erasmus in Reykjavík.",
+  "I'm the project manager of the avionics team at Aurora Rocketry, the University of Bologna's student rocketry team, and I do research on moving large amounts of data over LoRa without wasting airtime. I'm doing an MSc in Computer Science and Engineering in Bologna, and I spent the spring of 2026 on Erasmus in Reykjavík.",
   "During the day I'm a software developer at a company that makes enterprise software. Not as thrilling as rockets, I know. The long-term plan is to have some code of mine running in space before I turn 32.",
 ], it = [
   "Scrivo software embedded: per lo più C++ su ESP32, per lo più per cose che dovrebbero volare.",
-  "Guido lo sviluppo del software di avionica di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna, e faccio ricerca su come trasferire tanti dati su LoRa senza sprecare tempo in aria. Frequento la magistrale in Ingegneria e Scienze Informatiche a Bologna, e ho passato la primavera del 2026 in Erasmus a Reykjavík.",
+  "Sono il project manager del team di avionica di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna, e faccio ricerca su come trasferire tanti dati su LoRa senza sprecare tempo in aria. Frequento la magistrale in Ingegneria e Scienze Informatiche a Bologna, e ho passato la primavera del 2026 in Erasmus a Reykjavík.",
   "Di giorno faccio lo sviluppatore in un'azienda che produce software gestionale. Meno emozionante dei razzi, lo so. Il piano a lungo termine è avere del codice mio in orbita prima dei 32 anni.",
 ] }
 
@@ -127,85 +127,69 @@ body = { en = [
 # ---------------------------------------------------------------------------
 
 [[projects]]
-slug = "atlas"
+slug = "aurora-rocketry"
 featured = true
-title = "Atlas"
-subtitle = { en = "Flight software for the Atlas rocket", it = "Il software di volo del razzo Atlas" }
-stack = ["ESP32-S3", "ESP-IDF", "FreeRTOS", "C++", "LoRa"]
-summary = { en = "The firmware of the flight computer on Atlas, Aurora Rocketry's rocket for EuRoC 2026. It reads the IMU and the barometer at 50 Hz, works out which of 12 flight states the rocket is in, fires the parachute charges and sends telemetry to the ground over LoRa. I'm the project manager of the avionics team, seven people. Launches are rare, so most testing happens on the bench, with a RocketPy simulation feeding the board fake sensor data.", it = "Il firmware del flight computer di Atlas, il razzo di Aurora Rocketry per EuRoC 2026. Legge IMU e barometro a 50 Hz, capisce in quale dei 12 stati di volo si trova il razzo, aziona le cariche dei paracadute e manda la telemetria a terra su LoRa. Sono il project manager del team di avionica, sette persone. I lanci sono rari, quindi quasi tutti i test si fanno al banco, con una simulazione RocketPy che fornisce alla scheda dati dei sensori finti." }
-caption = { en = "The 12 flight states. The parachutes fire on entering apogee.", it = "I 12 stati di volo. I paracadute partono all'ingresso in apogeo." }
-image = { file = "avionics-boards", widths = [800, 1280], w = 1280, h = 960, alt = { en = "Two avionics boards held in hand: a round white board and a black ESP32 board", it = "Due schede di avionica tenute in mano: una rotonda bianca e una nera con ESP32" }, caption = { en = "Avionics boards. Photo: Aurora Rocketry.", it = "Schede di avionica. Foto: Aurora Rocketry." } }
+title = "Aurora Rocketry"
+subtitle = { en = "Flight software and telemetry", it = "Software di volo e telemetria" }
+stack = ["ESP32-S3", "C++", "FreeRTOS", "LoRa", "EKF"]
+summary = { en = "I'm the project manager of the avionics team at Aurora Rocketry, the University of Bologna's student rocketry team: seven people. Hands-on, I've worked mostly on our previous flight computer, the round white board below, and on the LoRa telemetry to the ground, which became my bachelor's thesis. Its successor, Manny, is the board for Atlas, our rocket for EuRoC 2026. I haven't worked on that one yet.", it = "Sono il project manager del team di avionica di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna: sette persone. Sul piano pratico ho lavorato soprattutto sul nostro flight computer precedente, la scheda bianca rotonda qui sotto, e sulla telemetria LoRa verso terra, che è diventata la mia tesi triennale. La scheda che la sostituisce, Manny, è quella di Atlas, il nostro razzo per EuRoC 2026. Su quella non ho ancora lavorato." }
+image = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "A round white avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "Una scheda di avionica bianca e rotonda davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The previous avionics board, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La vecchia scheda di avionica, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
 links = [
-  { kind = "code", url = "https://github.com/AuroraRocketryTeam/atlas" },
   { kind = "thesis", url = "https://aleemont1.github.io/bachelor-thesis/pdf/tesi.pdf" },
 ]
 
 [projects.detail]
-diagram = "atlas"
-banner = { file = "atlas-render", widths = [1727], w = 1727, h = 280, alt = { en = "Side CAD render of the Atlas rocket", it = "Render CAD laterale del razzo Atlas" }, caption = { en = "Atlas, side render. Image: Aurora Rocketry.", it = "Atlas, render laterale. Immagine: Aurora Rocketry." } }
-photo = { file = "atlas-board", widths = [720], w = 720, h = 600, alt = { en = "The Manny flight computer board, with the ESP32-S3-WROOM-1 module", it = "La scheda di volo Manny, con il modulo ESP32-S3-WROOM-1" }, caption = { en = "Manny, the flight computer Atlas runs on. Photo: Aurora Rocketry.", it = "Manny, il flight computer su cui gira Atlas. Foto: Aurora Rocketry." } }
-meta = { en = "Project manager and avionics lead · April 2024 – now · team of 7", it = "Project manager e responsabile avionica · aprile 2024 – oggi · team di 7 persone" }
-facts = [
-  { k = "MCU", v = "ESP32-S3, 16 MB flash" },
-  { k = "IMU", v = "Bosch BNO055" },
-  { k = { en = "Accelerometer", it = "Accelerometro" }, v = "ST LIS3DHTR" },
-  { k = { en = "Barometer", it = "Barometro" }, v = "TE MS5611" },
-  { k = "Radio", v = "EByte E220, LoRa 868 MHz" },
-  { k = { en = "Storage", it = "Memoria" }, v = { en = "External SPI flash, LittleFS", it = "Flash SPI esterna, LittleFS" } },
-]
+meta = { en = "Avionics project manager · April 2024 – now · team of 7", it = "Project manager dell'avionica · aprile 2024 – oggi · team di 7 persone" }
+banner = { file = "launch", widths = [800, 1179], w = 1179, h = 786, alt = { en = "A white rocket lifting off from a rail in a green field, trailing white smoke", it = "Un razzo bianco che decolla da una rampa in un campo verde, con una scia di fumo bianco" }, caption = { en = "Launch day. Photo: Aurora Rocketry.", it = "Giorno di lancio. Foto: Aurora Rocketry." } }
 intro = { en = [
-  "Aurora Rocketry started in 2024. Our first rocket, Borealis, was a test vehicle designed to reach 1,500 m, and its telemetry system was the subject of my bachelor's thesis. Nemesis came next, in 2025: our first competition rocket, built to carry a 1 kg payload to 3,000 m.",
-  "Atlas is the 2026 rocket, built for EuRoC, and this is its flight software. It runs on Manny, the ESP32-S3 board at the centre of the avionics.",
+  "Aurora Rocketry started in 2024. Borealis, our first rocket, was a test vehicle designed to reach 1,500 m. Nemesis followed in 2025: our first competition rocket, built to carry a 1 kg payload to 3,000 m. Atlas is the 2026 rocket, for EuRoC.",
+  "I coordinate the avionics team, seven people. Most of my own hands-on work went into the flight computer that came before Manny, and into its telemetry, which my bachelor's thesis is about.",
 ], it = [
-  "Aurora Rocketry è nata nel 2024. Il nostro primo razzo, Borealis, era un veicolo di test progettato per arrivare a 1.500 m, e il suo sistema di telemetria è stato l'argomento della mia tesi triennale. Poi, nel 2025, è arrivato Nemesis: il nostro primo razzo da competizione, progettato per portare un payload di 1 kg a 3.000 m.",
-  "Atlas è il razzo del 2026, costruito per EuRoC, e questo è il suo software di volo. Gira su Manny, la scheda ESP32-S3 al centro dell'avionica.",
+  "Aurora Rocketry è nata nel 2024. Borealis, il nostro primo razzo, era un veicolo di test progettato per arrivare a 1.500 m. Nel 2025 è arrivato Nemesis, il primo razzo da competizione, progettato per portare un payload di 1 kg a 3.000 m. Atlas è il razzo del 2026, per EuRoC.",
+  "Coordino il team di avionica, sette persone. La maggior parte del mio lavoro pratico è andata nel flight computer che c'era prima di Manny, e nella sua telemetria, che è l'argomento della mia tesi triennale.",
 ] }
+photo = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "A round white avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "Una scheda di avionica bianca e rotonda davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The previous avionics board, the one I've worked on most, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La vecchia scheda di avionica, quella su cui ho lavorato di più, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
 
 [[projects.detail.sections]]
-heading = { en = "One task set per flight state", it = "Un insieme di task per ogni stato" }
+heading = { en = "The flight computer", it = "Il flight computer" }
 body = { en = [
-  "The firmware is a state machine with 12 states, from calibration on the pad to recovered on the ground. It runs as a 50 Hz FreeRTOS task with a watchdog on it. Each state declares the tasks it needs: on every transition the state machine stops the ones that are no longer needed and starts the missing ones. On the pad there's no point in logging to flash at full rate, and in flight there's no point in running the Wi-Fi dashboard.",
-  "Sensor reading and altitude estimation run on one core. Storage, telemetry and the dashboard run on the other, so flash and radio work stays off the core that reads the sensors.",
+  "The flight computer in my thesis is built around an ESP32-S3 on an Arduino Nano ESP32, with a sensor module and an actuator module that fires the pyrotechnic charges. An Extended Kalman Filter combines the IMU with two barometers on a static port, to estimate orientation, vertical velocity and altitude. The filter corrects the IMU's drift and smooths out the barometers' noise.",
+  "When the vertical velocity reaches zero and the rocket starts to fall, it detects apogee and fires the drogue parachute. The main parachute opens at 450 m.",
 ], it = [
-  "Il firmware è una macchina a stati con 12 stati, dalla calibrazione sulla rampa fino al razzo recuperato. Gira come task FreeRTOS a 50 Hz, sotto watchdog. Ogni stato dichiara i task che gli servono: a ogni transizione la macchina a stati ferma quelli che non servono più e avvia quelli che mancano. Sulla rampa non ha senso scrivere su flash a piena velocità, e in volo non ha senso tenere accesa la dashboard Wi-Fi.",
-  "Lettura dei sensori e stima dell'altitudine girano su un core. Salvataggio, telemetria e dashboard sull'altro, così flash e radio restano fuori dal core che legge i sensori.",
+  "Il flight computer della mia tesi è basato su un ESP32-S3 montato su un Arduino Nano ESP32, con un modulo sensori e un modulo attuatori che aziona le cariche pirotecniche. Un Extended Kalman Filter combina la IMU con due barometri collegati a una presa statica, per stimare orientamento, velocità verticale e altitudine. Il filtro corregge la deriva della IMU e attenua il rumore dei barometri.",
+  "Quando la velocità verticale si annulla e il razzo inizia a scendere, rileva l'apogeo e apre il paracadute drogue. Il principale si apre a 450 m.",
 ] }
-
-[[projects.detail.sections]]
-heading = { en = "Finding apogee", it = "Trovare l'apogeo" }
-body = { en = [
-  "Apogee comes from barometric altitude. A median filter removes spikes, and a least-squares fit over a sliding window gives the vertical velocity. When it stops climbing, the recovery charges fire: one parachute or two, depending on the configuration. A time lockout stops it from triggering too early during the burn, and a time backstop fires it anyway if apogee hasn't been detected by then.",
-], it = [
-  "L'apogeo si ricava dall'altitudine barometrica. Un filtro mediano toglie i picchi, e una regressione ai minimi quadrati su una finestra mobile dà la velocità verticale. Quando il razzo smette di salire partono le cariche di recupero: uno o due paracadute, a seconda della configurazione. Un blocco temporale evita che scatti troppo presto durante la spinta, e un limite di tempo lo fa scattare comunque se l'apogeo non è ancora stato rilevato.",
-] }
-
-[[projects.detail.sections]]
-heading = { en = "Before launch", it = "Prima del lancio" }
-body = { en = [
-  "On the ground the board opens its own Wi-Fi access point and serves a small web app: live sensor data, health checks, a pre-launch checklist, flight parameters and firmware updates. When we declare the rocket ready for launch, the parameters are validated and frozen, so nothing can change them mid-flight.",
-], it = [
-  "A terra la scheda apre un proprio access point Wi-Fi e serve una piccola web app: dati dei sensori in diretta, controlli di stato, una checklist pre-lancio, i parametri di volo e gli aggiornamenti del firmware. Quando dichiariamo il razzo pronto al lancio, i parametri vengono validati e congelati, così niente può cambiarli in volo.",
-] }
-
-[[projects.detail.sections]]
-heading = { en = "Testing without launching", it = "Testare senza lanciare" }
-image = { file = "nemesis-to-pad", widths = [800, 1600], w = 1600, h = 1202, alt = { en = "Team members in hard hats carrying the Nemesis rocket across a dusty launch site", it = "Membri del team con il casco che trasportano il razzo Nemesis sul terreno polveroso del sito di lancio" }, caption = { en = "Nemesis, our 2025 rocket, on its way to the pad. Photo: Aurora Rocketry.", it = "Nemesis, il nostro razzo del 2025, verso la rampa. Foto: Aurora Rocketry." } }
-body = { en = [
-  "Launching a rocket means permits, a site, travel and money, so it doesn't happen often. In hardware-in-the-loop builds, a RocketPy simulation on a laptop sends sensor data to the board over TCP, in lockstep, and the real state machine, filters and recovery logic react to it. There's also a guided routine that checks every sensor and output on the bench.",
-], it = [
-  "Lanciare un razzo vuol dire permessi, un sito, trasferte e soldi, quindi non capita spesso. Nelle build hardware-in-the-loop una simulazione RocketPy su un portatile invia alla scheda i dati dei sensori via TCP, in lockstep, e la vera macchina a stati, i filtri e la logica di recupero reagiscono. C'è anche una routine guidata che verifica al banco ogni sensore e ogni uscita.",
-] }
+facts = [
+  { k = "MCU", v = "ESP32-S3 (Arduino Nano ESP32)" },
+  { k = "IMU", v = "Bosch BNO055" },
+  { k = { en = "Barometers", it = "Barometri" }, v = "2 × Adafruit MPRLS" },
+  { k = { en = "Fusion", it = "Fusione" }, v = "Extended Kalman Filter" },
+  { k = "Radio", v = "EByte E220-900T22D, 868 MHz" },
+  { k = { en = "Recovery", it = "Recupero" }, v = { en = "Drogue at apogee, main at 450 m", it = "Drogue all'apogeo, principale a 450 m" } },
+]
+image = { file = "borealis-ebay", widths = [720], w = 720, h = 960, alt = { en = "The Borealis electronics bay: a round board with a LoRa antenna and a battery, mounted on threaded rods inside a transparent tube", it = "La electronics bay di Borealis: una scheda rotonda con antenna LoRa e batteria, montata su barre filettate dentro un tubo trasparente" }, caption = { en = "The Borealis electronics bay, from my thesis.", it = "La electronics bay di Borealis, dalla mia tesi." } }
 
 [[projects.detail.sections]]
 heading = { en = "Telemetry", it = "Telemetria" }
-image = { file = "ground-station", widths = [800, 1600], w = 1600, h = 900, alt = { en = "A laptop and radio equipment on a terrace at sunset, overlooking a city", it = "Un portatile e apparecchiature radio su una terrazza al tramonto, sopra la città" }, caption = { en = "Ground station laptop at sunset. Photo: Aurora Rocketry.", it = "Il portatile della ground station al tramonto. Foto: Aurora Rocketry." } }
 body = { en = [
-  "The rocket body is aluminium, which blocks radio, so the electronics bay sits behind a PMMA window. In open-field tests for my thesis, the E220 modules kept a link beyond 2 km with an average throughput of about 640 bytes per second.",
-  "A telemetry packet is bigger than one LoRa frame, so the thesis protocol already split data into chunks with a CRC, and dropped incomplete messages after a timeout. It had no retransmissions, though. Adding them without wasting airtime became LAMP.",
+  "The link is one-way, point to point: an E220 LoRa module on the rocket, another at the ground station on an ESP32-S3 that forwards everything to a laptop. On the ground there's a directional Yagi antenna and no tracking system, so someone has to point it at the rocket by hand.",
+  "The rocket body is aluminium, which blocks radio, so the electronics bay sits behind a PMMA window. Flight data goes into a JSON object, gets delta-compressed, split into chunks that fit a LoRa frame, and each chunk gets a small header and a CRC. The ground station puts chunks back in order, rebuilds the message and throws away anything incomplete after a timeout.",
+  "In open-field tests the link held beyond 2 km, with an average throughput of about 640 bytes per second. What it couldn't do was recover a lost chunk. Adding that without wasting airtime became LAMP.",
 ], it = [
-  "Il corpo del razzo è in alluminio, che blocca le onde radio, quindi la electronics bay sta dietro una finestra in PMMA. Nei test in campo aperto della tesi i moduli E220 hanno tenuto il collegamento oltre i 2 km, con un throughput medio di circa 640 byte al secondo.",
-  "Un pacchetto di telemetria è più grande di un frame LoRa, quindi il protocollo della tesi divideva già i dati in pezzi con un CRC, e scartava i messaggi incompleti dopo un timeout. Però non ritrasmetteva nulla. Aggiungere le ritrasmissioni senza sprecare tempo in aria è diventato LAMP.",
+  "Il collegamento è unidirezionale, punto a punto: un modulo LoRa E220 sul razzo, un altro alla ground station su un ESP32-S3 che inoltra tutto a un portatile. A terra c'è un'antenna Yagi direzionale e nessun sistema di inseguimento, quindi qualcuno deve puntarla a mano verso il razzo.",
+  "Il corpo del razzo è in alluminio, che blocca le onde radio, quindi la electronics bay sta dietro una finestra in PMMA. I dati di volo finiscono in un oggetto JSON, vengono compressi in delta, divisi in pezzi che stanno in un frame LoRa, e ogni pezzo riceve un piccolo header e un CRC. La ground station rimette i pezzi in ordine, ricostruisce il messaggio e scarta quello che resta incompleto dopo un timeout.",
+  "Nei test in campo aperto il collegamento ha tenuto oltre i 2 km, con un throughput medio di circa 640 byte al secondo. Quello che non sapeva fare era recuperare un pezzo perso. Aggiungerlo senza sprecare tempo in aria è diventato LAMP.",
 ] }
+
+[[projects.detail.sections]]
+heading = { en = "What comes next: Atlas and Manny", it = "Cosa viene dopo: Atlas e Manny" }
+body = { en = [
+  "For Atlas the avionics were redesigned as four boards on a backplane, with Manny, an ESP32-S3 board, at the centre. Its flight software is a 12-state machine where each state starts only the FreeRTOS tasks it needs, and it can be tested on the bench against a RocketPy simulation, since launches are rare. I follow it as project manager, but I haven't written code for Manny yet.",
+], it = [
+  "Per Atlas l'avionica è stata riprogettata in quattro schede su un backplane, con Manny, una scheda ESP32-S3, al centro. Il suo software di volo è una macchina a stati con 12 stati in cui ogni stato avvia solo i task FreeRTOS che gli servono, e si può testare al banco contro una simulazione RocketPy, visto che i lanci sono rari. Lo seguo come project manager, ma su Manny non ho ancora scritto codice.",
+] }
+diagram = "atlas"
+caption = { en = "The 12 flight states in the Atlas flight software. The parachutes fire on entering apogee.", it = "I 12 stati di volo del software di Atlas. I paracadute partono all'ingresso in apogeo." }
 
 [[projects]]
 slug = "lamp"
@@ -345,8 +329,8 @@ link = "lamp"
 period = { en = "2024 – now", it = "2024 – oggi" }
 role = { en = "Project manager, avionics", it = "Project manager, avionica" }
 org = "Aurora Rocketry"
-text = { en = "Flight software, team of 7.", it = "Software di volo, team di 7 persone." }
-link = "atlas"
+text = { en = "Flight software and telemetry, team of 7.", it = "Software di volo e telemetria, team di 7 persone." }
+link = "aurora-rocketry"
 
 [[experience]]
 period = "2024"

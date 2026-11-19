@@ -102,7 +102,7 @@ class BuildTest(unittest.TestCase):
         cls.tmp.cleanup()
 
     def test_pages_for_every_language(self):
-        for page in ["index.html", "it/index.html", "work/atlas/index.html", "it/work/lamp/index.html", "404.html"]:
+        for page in ["index.html", "it/index.html", "work/aurora-rocketry/index.html", "it/work/lamp/index.html", "404.html"]:
             self.assertIn(page, self.pages)
         for extra in ["CNAME", "sitemap.xml", "robots.txt", "assets/style.css", "assets/favicon.svg"]:
             self.assertTrue((self.out / extra).exists(), extra)
