@@ -29,23 +29,17 @@
 <body>
 <a class="skip" href="#main">{{ ui.skip }}</a>
 <header class="site-header">
-  <div class="wrap header-inner">
-    <a class="brand" href="{{ prefix }}/">
-      <span class="brand-mark" aria-hidden="true">am</span>
-      <span class="brand-name">{{ c.site.name }}</span>
-    </a>
-    <nav class="nav" aria-label="{{ ui.nav_work }}">
-      <a href="{{ prefix }}/#work">{{ ui.nav_work }}</a>
-      <a href="{{ prefix }}/#experience">{{ ui.nav_experience }}</a>
-      <a href="{{ prefix }}/#writing">{{ ui.nav_writing }}</a>
-      <a href="{{ prefix }}/#documents">{{ ui.nav_documents }}</a>
-    </nav>
-    <div class="actions">
-      {% if other_lang %}
-      <a class="icon-btn lang" href="{{ other_prefix }}{{ path }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}" title="{{ ui.lang_switch }}" aria-label="{{ ui.lang_switch }}">{{ ui.lang_switch_short }}</a>
-      {% endif %}
-      <button class="icon-btn theme-toggle" type="button" title="{{ ui.theme }}" aria-label="{{ ui.theme }}">{{ icon.sun }}{{ icon.moon }}</button>
-    </div>
+  <a class="brand" href="{{ prefix }}/">{{ c.site.name }}</a>
+  <nav class="nav">
+    <a href="{{ prefix }}/#work">{{ ui.nav_work }}</a>
+    <a href="{{ prefix }}/#experience">{{ ui.nav_experience }}</a>
+    <a href="{{ prefix }}/#writing">{{ ui.nav_writing }}</a>
+  </nav>
+  <div class="actions">
+    {% if other_lang %}
+    <a class="icon-btn lang" href="{{ other_prefix }}{{ path }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}" title="{{ ui.lang_switch }}" aria-label="{{ ui.lang_switch }}">{{ ui.lang_switch_short }}</a>
+    {% endif %}
+    <button class="icon-btn theme-toggle" type="button" title="{{ ui.theme }}" aria-label="{{ ui.theme }}">{{ icon.sun }}{{ icon.moon }}</button>
   </div>
 </header>
 
@@ -54,10 +48,7 @@
 </main>
 
 <footer class="site-footer">
-  <div class="wrap footer-inner">
-    <p>© {{ c.site.name }}</p>
-    <p class="muted">{{ ui.footer_built }} <a href="{{ c.site.source }}">{{ ui.footer_source }}</a></p>
-  </div>
+  <p>© {{ c.site.name }} · {{ ui.footer_built }} <a href="{{ c.site.source }}">{{ ui.footer_source }}</a></p>
 </footer>
 <script>
 (function(){

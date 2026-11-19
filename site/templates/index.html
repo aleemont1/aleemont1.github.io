@@ -1,145 +1,113 @@
 {% extends "base.html" %}
 {% import "_macros.html" as m with context %}
-{% block title %}{{ c.site.name }} · {{ c.hero.eyebrow }}{% endblock %}
+{% block title %}{{ c.site.name }} · {{ c.site.role }}{% endblock %}
 {% block main %}
 
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow"><span class="led" aria-hidden="true"></span>{{ c.hero.eyebrow }}</p>
-    <h1>{{ c.hero.title }}</h1>
-    <p class="lede">{{ c.hero.lede }}</p>
-    <div class="link-row">
-      <a class="btn" href="mailto:{{ c.site.email }}">{{ icon['envelope-simple'] }} {{ ui.email }}</a>
-      <a class="btn btn-ghost" href="{{ c.site.github }}">{{ icon['github-logo'] }} GitHub</a>
-      <a class="btn btn-ghost" href="{{ c.site.linkedin }}">{{ icon['linkedin-logo'] }} LinkedIn</a>
-      <a class="btn btn-ghost" href="{{ c.site.cv }}">{{ icon['file-pdf'] }} {{ ui.cv }}</a>
-      <a class="btn btn-ghost" href="{{ c.site.blog }}">{{ icon.rss }} {{ ui.blog }}</a>
-    </div>
-    <dl class="stats">
-      {% for s in c.stats %}
-      <div><dt>{{ s.label }}</dt><dd>{{ s.value }}</dd></div>
-      {% endfor %}
-    </dl>
-  </div>
+<section class="intro">
+  <h1>{{ c.site.name }}</h1>
+  <p class="role">{{ c.site.role }}</p>
+  {% for para in c.intro.body %}<p>{{ para }}</p>{% endfor %}
+  <p class="contact-links">
+    <a href="mailto:{{ c.site.email }}">{{ icon['envelope-simple'] }}{{ ui.email }}</a>
+    <a href="{{ c.site.github }}">{{ icon['github-logo'] }}GitHub</a>
+    <a href="{{ c.site.linkedin }}">{{ icon['linkedin-logo'] }}LinkedIn</a>
+    <a href="{{ c.site.cv }}">{{ icon['file-pdf'] }}{{ ui.cv }}</a>
+    <a href="{{ c.site.blog }}">{{ icon.rss }}{{ ui.blog }}</a>
+  </p>
 </section>
 
-<section id="work" class="section">
-  <div class="wrap">
-    <h2 class="section-title"><span class="idx">01</span>{{ ui.section_work }}</h2>
-    {% for p in c.projects if p.get("featured") %}
-    <article class="feature">
-      <div class="feature-text">
-        <p class="kicker">{{ p.subtitle }}</p>
-        <h3><a href="{{ prefix }}/work/{{ p.slug }}/">{{ p.title }}</a></h3>
-        {{ m.tags(p.tags) }}
-        <p>{{ p.summary }}</p>
-        {% if p.get("highlights") %}
-        <ul class="highlights">{% for h in p.highlights %}<li>{{ h }}</li>{% endfor %}</ul>
-        {% endif %}
-        {{ m.project_links(p, ui, icon, prefix) }}
-      </div>
-      <div class="feature-visual">{{ m.diagram(p.detail.diagram, lang, compact=true) }}</div>
-    </article>
-    {% endfor %}
+<section id="work">
+  <h2>{{ ui.section_work }}</h2>
+  {% for p in c.projects if p.get("featured") %}
+  <article class="project">
+    <h3><a href="{{ prefix }}/work/{{ p.slug }}/">{{ p.title }}</a> <span class="subtitle">{{ p.subtitle }}</span></h3>
+    <p>{{ p.summary }}</p>
+    {{ m.diagram(p.detail.diagram, lang, p.caption, compact=true) }}
+    <p class="stack">{{ p.stack | join(' · ') }}</p>
+    {{ m.project_links(p, ui, icon, prefix) }}
+  </article>
+  {% endfor %}
 
-    <h3 class="sub-title">{{ ui.section_more }}</h3>
-    <div class="cards">
-      {% for p in c.projects if not p.get("featured") %}
-      <article class="card">
-        <p class="kicker">{{ p.subtitle }}</p>
-        <h4>{{ p.title }}</h4>
-        <p>{{ p.summary }}</p>
-        {% if p.get("highlights") %}<p class="card-hl">{{ p.highlights[0] }}</p>{% endif %}
-        {{ m.tags(p.tags) }}
-        {{ m.project_links(p, ui, icon, prefix) }}
-      </article>
-      {% endfor %}
-    </div>
-  </div>
+  <h3 class="list-title">{{ ui.section_more }}</h3>
+  <ul class="list">
+    {% for p in c.projects if not p.get("featured") %}
+    <li>
+      <p class="list-head"><strong>{{ p.title }}</strong> <span class="subtitle">{{ p.subtitle }}</span></p>
+      <p>{{ p.summary }}</p>
+      <p class="stack">{{ p.stack | join(' · ') }}{% for link in p.get("links", []) %} · <a href="{{ link.url }}">{{ ui[link.kind] }}</a>{% endfor %}{% if p.get("private") %} · {{ ui.code_private }}{% endif %}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section id="experience">
+  <h2>{{ ui.section_experience }}</h2>
+  <ol class="rows">
+    {% for e in c.experience %}
+    <li>
+      <span class="when">{{ e.period }}</span>
+      <div>
+        <p class="row-head"><strong>{{ e.role }}</strong>, {{ e.org }}</p>
+        <p class="row-text">{{ e.text }}{% if e.get("link") %} <a href="{{ prefix }}/work/{{ e.link }}/">{{ ui.details }}</a>{% endif %}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <h3 class="list-title">{{ ui.section_education }}</h3>
+  <ol class="rows">
+    {% for e in c.education %}
+    <li>
+      <span class="when">{{ e.period }}</span>
+      <div><p class="row-head"><strong>{{ e.title }}</strong></p><p class="row-text">{{ e.org }}</p></div>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <h3 class="list-title">{{ ui.section_skills }}</h3>
+  <p>{{ c.skills.text }}</p>
 </section>
 
 {% if heatmap %}
-<section id="activity" class="section">
-  <div class="wrap">
-    <h2 class="section-title"><span class="idx">02</span>{{ ui.section_activity }}</h2>
-    <figure class="activity">
-      <div class="heatmap-scroll">{{ heatmap }}</div>
-      <figcaption>
-        <a href="{{ c.site.github }}">{{ ui.contributions.format(n=calendar.total) }}</a>
-        <span class="legend" aria-hidden="true">{{ ui.contributions_less }}{% for l in range(5) %}<i class="l{{ l }}"></i>{% endfor %}{{ ui.contributions_more }}</span>
-      </figcaption>
-    </figure>
-  </div>
+<section id="activity">
+  <h2>{{ ui.section_activity }}</h2>
+  <figure class="activity">
+    <div class="heatmap-scroll">{{ heatmap }}</div>
+    <figcaption>{{ ui.contributions.format(n=calendar.total, days=calendar.active_days) }}</figcaption>
+  </figure>
 </section>
 {% endif %}
 
-<section id="experience" class="section">
-  <div class="wrap two-col">
-    <div>
-      <h2 class="section-title"><span class="idx">{{ '03' if heatmap else '02' }}</span>{{ ui.section_experience }}</h2>
-      <ol class="timeline-list">
-        {% for e in c.experience %}
-        <li>
-          <p class="when">{{ e.period }}</p>
-          <div>
-            <h3>{{ e.role }}</h3>
-            <p class="org">{{ e.org }}</p>
-            <p>{{ e.text }}{% if e.get("link") %} <a href="{{ prefix }}/work/{{ e.link }}/" class="inline-more">{{ icon['arrow-right'] }}<span class="sr">{{ ui.read_case }}</span></a>{% endif %}</p>
-            {{ m.tags(e.stack) }}
-          </div>
-        </li>
-        {% endfor %}
-      </ol>
-    </div>
-    <aside>
-      <h2 class="section-title small">{{ ui.section_education }}</h2>
-      <ol class="edu-list">
-        {% for e in c.education %}
-        <li><p class="when">{{ e.period }}</p><h3>{{ e.title }}</h3><p class="org">{{ e.org }}</p></li>
-        {% endfor %}
-      </ol>
-      <h2 class="section-title small">{{ ui.section_skills }}</h2>
-      <dl class="skills">
-        {% for s in c.skills %}
-        <div><dt>{{ s.group }}</dt><dd>{{ s['items'] | join(' · ') }}</dd></div>
-        {% endfor %}
-      </dl>
-    </aside>
-  </div>
+<section id="writing">
+  <h2>{{ ui.section_writing }}</h2>
+  <p>{{ ui.writing_intro }}</p>
+  {% if posts %}
+  <ul class="rows posts">
+    {% for p in posts %}
+    <li><span class="when">{% if p.date %}<time datetime="{{ p.date.isoformat() }}">{{ p.date.isoformat() }}</time>{% endif %}</span><a href="{{ p.url }}">{{ p.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">{{ ui.writing_empty }}</p>
+  {% endif %}
+  <p><a href="{{ c.site.blog }}">{{ ui.writing_all }} →</a></p>
 </section>
 
-<section id="writing" class="section">
-  <div class="wrap">
-    <h2 class="section-title"><span class="idx">{{ '04' if heatmap else '03' }}</span>{{ ui.section_writing }}</h2>
-    <p class="muted">{{ ui.writing_intro }}</p>
-    {% if posts %}
-    <ul class="rows">
-      {% for p in posts %}
-      <li><time{% if p.date %} datetime="{{ p.date.isoformat() }}"{% endif %}>{{ p.date.isoformat() if p.date else '' }}</time><a href="{{ p.url }}">{{ p.title }}</a></li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p class="muted">{{ ui.writing_empty }}</p>
-    {% endif %}
-    <p><a class="btn btn-ghost" href="{{ c.site.blog }}">{{ icon.rss }} {{ ui.writing_all }} {{ icon['arrow-up-right'] }}</a></p>
-  </div>
+<section id="documents">
+  <h2>{{ ui.section_documents }}</h2>
+  <ul class="rows">
+    {% for d in c.documents %}
+    <li>
+      <span class="when">{{ d.kind }}</span>
+      <div><p class="row-head"><a href="{{ d.url }}">{{ d.title }}</a></p><p class="row-text">{{ d.text }}</p></div>
+    </li>
+    {% endfor %}
+  </ul>
 </section>
 
-<section id="documents" class="section">
-  <div class="wrap">
-    <h2 class="section-title"><span class="idx">{{ '05' if heatmap else '04' }}</span>{{ ui.section_documents }}</h2>
-    <ul class="docs">
-      {% for d in c.documents %}
-      <li>
-        <a href="{{ d.url }}">
-          <span class="doc-kind">{{ d.kind }}</span>
-          <span class="doc-title">{{ d.title }}</span>
-          <span class="doc-text">{{ d.text }}</span>
-          {{ icon['arrow-up-right'] }}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
+<section id="contact">
+  <h2>{{ ui.section_contact }}</h2>
+  <p>{{ ui.contact_text }} <a href="mailto:{{ c.site.email }}">{{ c.site.email }}</a></p>
+  <p>{{ ui.contact_more.format(linkedin='<a href="' ~ c.site.linkedin ~ '">LinkedIn</a>', github='<a href="' ~ c.site.github ~ '">GitHub</a>') | safe }}</p>
 </section>
 {% endblock %}

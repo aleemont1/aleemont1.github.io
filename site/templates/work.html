@@ -1,45 +1,33 @@
 {% extends "base.html" %}
 {% import "_macros.html" as m with context %}
-{% block title %}{{ project.title }}: {{ project.subtitle }} · {{ c.site.name }}{% endblock %}
+{% block title %}{{ project.title }} · {{ c.site.name }}{% endblock %}
 {% block description %}{{ project.summary }}{% endblock %}
 {% block main %}
 <article class="case">
-  <div class="wrap narrow">
-    <p><a class="back" href="{{ prefix }}/#work">{{ icon['arrow-left'] }} {{ ui.back }}</a></p>
-    <p class="eyebrow"><span class="led" aria-hidden="true"></span>{{ project.subtitle }}</p>
-    <h1>{{ project.title }}</h1>
-    <p class="lede">{{ project.summary }}</p>
-    {{ m.project_links(project, ui, icon, prefix, with_detail=false) }}
+  <p><a class="back" href="{{ prefix }}/#work">← {{ ui.back }}</a></p>
+  <h1>{{ project.title }}</h1>
+  <p class="role">{{ project.subtitle }}</p>
+  <p class="stack">{{ project.detail.meta }}</p>
 
-    <dl class="facts">
-      {% for f in project.detail.facts %}
-      <div><dt>{{ f.k }}</dt><dd>{{ f.v }}</dd></div>
-      {% endfor %}
-    </dl>
-  </div>
+  {% for para in project.detail.intro %}<p>{{ para }}</p>{% endfor %}
+  {{ m.project_links(project, ui, icon, prefix, with_detail=false) }}
 
-  <div class="wrap narrow">
-    {{ m.diagram(project.detail.diagram, lang) }}
-    {% for s in project.detail.sections %}
-    <section class="case-section">
-      <h2>{{ s.heading }}</h2>
-      {% for para in s.body %}<p>{{ para }}</p>{% endfor %}
-      {% if s.get("chart") %}{{ m.bar_chart(c.charts[s.chart], num) }}{% endif %}
-    </section>
-    {% endfor %}
+  {% if project.detail.get("facts") %}
+  <table class="facts">
+    {% for f in project.detail.facts %}<tr><th scope="row">{{ f.k }}</th><td>{{ f.v }}</td></tr>{% endfor %}
+  </table>
+  {% endif %}
 
-    {% if project.get("highlights") %}
-    <section class="case-section">
-      <ul class="highlights">{% for h in project.highlights %}<li>{{ h }}</li>{% endfor %}</ul>
-    </section>
-    {% endif %}
+  {{ m.diagram(project.detail.diagram, lang, project.caption) }}
 
-    {% if next_project %}
-    <a class="next" href="{{ prefix }}/work/{{ next_project.slug }}/">
-      <span class="kicker">{{ next_project.subtitle }}</span>
-      <span class="next-title">{{ next_project.title }} {{ icon['arrow-right'] }}</span>
-    </a>
-    {% endif %}
-  </div>
+  {% for s in project.detail.sections %}
+  <h2>{{ s.heading }}</h2>
+  {% for para in s.body %}<p>{{ para }}</p>{% endfor %}
+  {% if s.get("chart") %}{{ m.bar_chart(c.charts[s.chart], num) }}{% endif %}
+  {% endfor %}
+
+  {% if next_project %}
+  <p class="next">{{ ui.next }}: <a href="{{ prefix }}/work/{{ next_project.slug }}/">{{ next_project.title }} →</a> <span class="muted">{{ next_project.subtitle }}</span></p>
+  {% endif %}
 </article>
 {% endblock %}

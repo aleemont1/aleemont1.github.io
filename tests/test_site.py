@@ -35,7 +35,7 @@ class ContentTest(unittest.TestCase):
 
 class ActivityTest(unittest.TestCase):
     UI = {
-        "contributions": "{n} contributions",
+        "contributions": "{n} contributions, {days} days",
         "contributions_cell": "{n} on {date}",
         "contributions_cell_one": "1 on {date}",
         "contributions_cell_none": "none on {date}",
@@ -49,7 +49,7 @@ class ActivityTest(unittest.TestCase):
         days = sum(len(w) for w in cal.weeks)
         svg = activity.render_svg(cal, self.UI, "en")
         self.assertEqual(svg.count("<rect"), days)
-        self.assertIn(f'aria-label="{cal.total} contributions"', svg)
+        self.assertIn(f'aria-label="{cal.total} contributions, {cal.active_days} days"', svg)
         self.assertRegex(svg, r'class="l[0-4]"')
 
     def test_sunday_is_first_row(self):
@@ -112,7 +112,7 @@ class BuildTest(unittest.TestCase):
         it = (self.out / "it" / "index.html").read_text()
         self.assertIn('<html lang="en">', en)
         self.assertIn('<html lang="it">', it)
-        self.assertIn("Progetti principali", it)
+        self.assertIn("Altre cose che ho costruito", it)
         self.assertIn('class="heatmap"', en)
         self.assertIn("Re-learning C without an IDE", en)
 
