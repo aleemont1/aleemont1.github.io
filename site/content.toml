@@ -5,8 +5,8 @@
 # Lists of strings follow the same rule: ["a", "b"] or { en = [...], it = [...] }.
 # The build fails if a translated field is missing a language.
 #
-# Sources for the facts: the LAMP paper, the bachelor's thesis, the Atlas and
-# LAMP READMEs, the CV. Keep numbers traceable to one of them.
+# Sources for the facts: the LAMP paper, the bachelor's thesis, the LAMP
+# README, the CV and aurorarocketry.eu. Keep numbers traceable to one of them.
 
 languages = ["en", "it"]
 default_language = "en"
@@ -113,11 +113,11 @@ not_found_home = "Torna alla home"
 [intro]
 body = { en = [
   "I write embedded software: mostly C++ on ESP32s, mostly for things that are supposed to fly.",
-  "I'm the project manager of the avionics team at Aurora Rocketry, the University of Bologna's student rocketry team, and I do research on moving large amounts of data over LoRa without wasting airtime. I'm doing an MSc in Computer Science and Engineering in Bologna, and I spent the spring of 2026 on Erasmus in Reykjavík.",
+  "I was the project manager of the avionics software for the first two rockets of Aurora Rocketry, the University of Bologna's student rocketry team, and I do research on moving large amounts of data over LoRa without wasting airtime. I'm doing an MSc in Computer Science and Engineering in Bologna, and I spent the spring of 2026 on Erasmus in Reykjavík.",
   "During the day I'm a software developer at a company that makes enterprise software. Not as thrilling as rockets, I know. The long-term plan is to have some code of mine running in space before I turn 32.",
 ], it = [
   "Scrivo software embedded: per lo più C++ su ESP32, per lo più per cose che dovrebbero volare.",
-  "Sono il project manager del team di avionica di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna, e faccio ricerca su come trasferire tanti dati su LoRa senza sprecare tempo in aria. Frequento la magistrale in Ingegneria e Scienze Informatiche a Bologna, e ho passato la primavera del 2026 in Erasmus a Reykjavík.",
+  "Sono stato il project manager del software di avionica per i primi due razzi di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna, e faccio ricerca su come trasferire tanti dati su LoRa senza sprecare tempo in aria. Frequento la magistrale in Ingegneria e Scienze Informatiche a Bologna, e ho passato la primavera del 2026 in Erasmus a Reykjavík.",
   "Di giorno faccio lo sviluppatore in un'azienda che produce software gestionale. Meno emozionante dei razzi, lo so. Il piano a lungo termine è avere del codice mio in orbita prima dei 32 anni.",
 ] }
 
@@ -130,33 +130,32 @@ body = { en = [
 slug = "aurora-rocketry"
 featured = true
 title = "Aurora Rocketry"
-subtitle = { en = "Flight software and telemetry", it = "Software di volo e telemetria" }
+subtitle = { en = "Flight software and telemetry for Borealis and Nemesis", it = "Software di volo e telemetria per Borealis e Nemesis" }
 stack = ["ESP32-S3", "C++", "FreeRTOS", "LoRa", "EKF"]
-summary = { en = "I'm the project manager of the avionics team at Aurora Rocketry, the University of Bologna's student rocketry team: seven people. Hands-on, I've worked mostly on our previous flight computer, the round white board below, and on the LoRa telemetry to the ground, which became my bachelor's thesis. Its successor, Manny, is the board for Atlas, our rocket for EuRoC 2026. I haven't worked on that one yet.", it = "Sono il project manager del team di avionica di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna: sette persone. Sul piano pratico ho lavorato soprattutto sul nostro flight computer precedente, la scheda bianca rotonda qui sotto, e sulla telemetria LoRa verso terra, che è diventata la mia tesi triennale. La scheda che la sostituisce, Manny, è quella di Atlas, il nostro razzo per EuRoC 2026. Su quella non ho ancora lavorato." }
-image = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "A round white avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "Una scheda di avionica bianca e rotonda davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The previous avionics board, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La vecchia scheda di avionica, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
+summary = { en = "Aurora Rocketry is the University of Bologna's student rocketry team. I was the project manager of the avionics software for its first two rockets, Borealis in 2024 and Nemesis in 2025, with a team of seven. The flight computer of Borealis and its LoRa telemetry to the ground became my bachelor's thesis. The round white board below is the Nemesis one.", it = "Aurora Rocketry è il team studentesco di razzi dell'Università di Bologna. Sono stato il project manager del software di avionica per i suoi primi due razzi, Borealis nel 2024 e Nemesis nel 2025, con un team di sette persone. Il flight computer di Borealis e la sua telemetria LoRa verso terra sono diventati la mia tesi triennale. La scheda bianca rotonda qui sotto è quella di Nemesis." }
+image = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "The round white Nemesis avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "La scheda di avionica bianca e rotonda di Nemesis davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The Nemesis avionics board, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La scheda di avionica di Nemesis, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
 links = [
   { kind = "thesis", url = "https://aleemont1.github.io/bachelor-thesis/pdf/tesi.pdf" },
 ]
 
 [projects.detail]
-meta = { en = "Avionics project manager · April 2024 – now · team of 7", it = "Project manager dell'avionica · aprile 2024 – oggi · team di 7 persone" }
+meta = { en = "Avionics software project manager · Borealis (2024) and Nemesis (2025) · team of 7", it = "Project manager del software di avionica · Borealis (2024) e Nemesis (2025) · team di 7 persone" }
 banner = { file = "launch", widths = [800, 1179], w = 1179, h = 786, alt = { en = "A white rocket lifting off from a rail in a green field, trailing white smoke", it = "Un razzo bianco che decolla da una rampa in un campo verde, con una scia di fumo bianco" }, caption = { en = "Launch day. Photo: Aurora Rocketry.", it = "Giorno di lancio. Foto: Aurora Rocketry." } }
 intro = { en = [
-  "Aurora Rocketry started in 2024. Borealis, our first rocket, was a test vehicle designed to reach 1,500 m. Nemesis followed in 2025: our first competition rocket, built to carry a 1 kg payload to 3,000 m. Atlas is the 2026 rocket, for EuRoC.",
-  "I coordinate the avionics team, seven people. Most of my own hands-on work went into the flight computer that came before Manny, and into its telemetry, which my bachelor's thesis is about.",
+  "Aurora Rocketry started in 2024. Borealis, our first rocket, was a test vehicle designed to reach 1,500 m. Nemesis followed in 2025: our first competition rocket, built to carry a 1 kg payload to 3,000 m.",
+  "On both I was the project manager of the avionics software, with a team of seven. The flight computer of Borealis and its telemetry are what my bachelor's thesis is about.",
 ], it = [
-  "Aurora Rocketry è nata nel 2024. Borealis, il nostro primo razzo, era un veicolo di test progettato per arrivare a 1.500 m. Nel 2025 è arrivato Nemesis, il primo razzo da competizione, progettato per portare un payload di 1 kg a 3.000 m. Atlas è il razzo del 2026, per EuRoC.",
-  "Coordino il team di avionica, sette persone. La maggior parte del mio lavoro pratico è andata nel flight computer che c'era prima di Manny, e nella sua telemetria, che è l'argomento della mia tesi triennale.",
+  "Aurora Rocketry è nata nel 2024. Borealis, il nostro primo razzo, era un veicolo di test progettato per arrivare a 1.500 m. Nel 2025 è arrivato Nemesis, il primo razzo da competizione, progettato per portare un payload di 1 kg a 3.000 m.",
+  "Su entrambi sono stato il project manager del software di avionica, con un team di sette persone. Il flight computer di Borealis e la sua telemetria sono l'argomento della mia tesi triennale.",
 ] }
-photo = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "A round white avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "Una scheda di avionica bianca e rotonda davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The previous avionics board, the one I've worked on most, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La vecchia scheda di avionica, quella su cui ho lavorato di più, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
 
 [[projects.detail.sections]]
-heading = { en = "The flight computer", it = "Il flight computer" }
+heading = { en = "Borealis: the flight computer", it = "Borealis: il flight computer" }
 body = { en = [
-  "The flight computer in my thesis is built around an ESP32-S3 on an Arduino Nano ESP32, with a sensor module and an actuator module that fires the pyrotechnic charges. An Extended Kalman Filter combines the IMU with two barometers on a static port, to estimate orientation, vertical velocity and altitude. The filter corrects the IMU's drift and smooths out the barometers' noise.",
+  "The Borealis flight computer is built around an ESP32-S3 on an Arduino Nano ESP32, on round black boards: a sensor module, and an actuator module that fires the pyrotechnic charges. An Extended Kalman Filter combines the IMU with two barometers on a static port, to estimate orientation, vertical velocity and altitude. The filter corrects the IMU's drift and smooths out the barometers' noise.",
   "When the vertical velocity reaches zero and the rocket starts to fall, it detects apogee and fires the drogue parachute. The main parachute opens at 450 m.",
 ], it = [
-  "Il flight computer della mia tesi è basato su un ESP32-S3 montato su un Arduino Nano ESP32, con un modulo sensori e un modulo attuatori che aziona le cariche pirotecniche. Un Extended Kalman Filter combina la IMU con due barometri collegati a una presa statica, per stimare orientamento, velocità verticale e altitudine. Il filtro corregge la deriva della IMU e attenua il rumore dei barometri.",
+  "Il flight computer di Borealis è basato su un ESP32-S3 montato su un Arduino Nano ESP32, su schede nere rotonde: un modulo sensori e un modulo attuatori che aziona le cariche pirotecniche. Un Extended Kalman Filter combina la IMU con due barometri collegati a una presa statica, per stimare orientamento, velocità verticale e altitudine. Il filtro corregge la deriva della IMU e attenua il rumore dei barometri.",
   "Quando la velocità verticale si annulla e il razzo inizia a scendere, rileva l'apogeo e apre il paracadute drogue. Il principale si apre a 450 m.",
 ] }
 facts = [
@@ -167,10 +166,10 @@ facts = [
   { k = "Radio", v = "EByte E220-900T22D, 868 MHz" },
   { k = { en = "Recovery", it = "Recupero" }, v = { en = "Drogue at apogee, main at 450 m", it = "Drogue all'apogeo, principale a 450 m" } },
 ]
-image = { file = "borealis-ebay", widths = [720], w = 720, h = 960, alt = { en = "The Borealis electronics bay: a round board with a LoRa antenna and a battery, mounted on threaded rods inside a transparent tube", it = "La electronics bay di Borealis: una scheda rotonda con antenna LoRa e batteria, montata su barre filettate dentro un tubo trasparente" }, caption = { en = "The Borealis electronics bay, from my thesis.", it = "La electronics bay di Borealis, dalla mia tesi." } }
+image = { file = "borealis-ebay", widths = [720], w = 720, h = 960, alt = { en = "The Borealis electronics bay: a round black board with a LoRa antenna and a battery, mounted on threaded rods inside a transparent tube", it = "La electronics bay di Borealis: una scheda nera rotonda con antenna LoRa e batteria, montata su barre filettate dentro un tubo trasparente" }, caption = { en = "The Borealis electronics bay, from my thesis.", it = "La electronics bay di Borealis, dalla mia tesi." } }
 
 [[projects.detail.sections]]
-heading = { en = "Telemetry", it = "Telemetria" }
+heading = { en = "Borealis: telemetry", it = "Borealis: la telemetria" }
 body = { en = [
   "The link is one-way, point to point: an E220 LoRa module on the rocket, another at the ground station on an ESP32-S3 that forwards everything to a laptop. On the ground there's a directional Yagi antenna and no tracking system, so someone has to point it at the rocket by hand.",
   "The rocket body is aluminium, which blocks radio, so the electronics bay sits behind a PMMA window. Flight data goes into a JSON object, gets delta-compressed, split into chunks that fit a LoRa frame, and each chunk gets a small header and a CRC. The ground station puts chunks back in order, rebuilds the message and throws away anything incomplete after a timeout.",
@@ -182,14 +181,13 @@ body = { en = [
 ] }
 
 [[projects.detail.sections]]
-heading = { en = "What comes next: Atlas and Manny", it = "Cosa viene dopo: Atlas e Manny" }
+heading = { en = "Nemesis", it = "Nemesis" }
 body = { en = [
-  "For Atlas the avionics were redesigned as four boards on a backplane, with Manny, an ESP32-S3 board, at the centre. Its flight software is a 12-state machine where each state starts only the FreeRTOS tasks it needs, and it can be tested on the bench against a RocketPy simulation, since launches are rare. I follow it as project manager, but I haven't written code for Manny yet.",
+  "For Nemesis the avionics moved to the round white board in the photo, and the flight software is organised as a state machine: the code on the screen is the transition out of powered flight, which waits for a sustained drop in acceleration before switching to the ballistic phase. Next to it, Nemesis carried a second, independent flight computer: a commercial one, based on the Cats Vega.",
 ], it = [
-  "Per Atlas l'avionica è stata riprogettata in quattro schede su un backplane, con Manny, una scheda ESP32-S3, al centro. Il suo software di volo è una macchina a stati con 12 stati in cui ogni stato avvia solo i task FreeRTOS che gli servono, e si può testare al banco contro una simulazione RocketPy, visto che i lanci sono rari. Lo seguo come project manager, ma su Manny non ho ancora scritto codice.",
+  "Per Nemesis l'avionica è passata alla scheda bianca rotonda della foto, e il software di volo è organizzato come una macchina a stati: il codice sullo schermo è la transizione che chiude il volo propulso, e aspetta un calo prolungato dell'accelerazione prima di passare alla fase balistica. Accanto, Nemesis aveva un secondo flight computer indipendente: uno commerciale, basato su Cats Vega.",
 ] }
-diagram = "atlas"
-caption = { en = "The 12 flight states in the Atlas flight software. The parachutes fire on entering apogee.", it = "I 12 stati di volo del software di Atlas. I paracadute partono all'ingresso in apogeo." }
+image = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "The round white Nemesis avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "La scheda di avionica bianca e rotonda di Nemesis davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The Nemesis avionics board, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La scheda di avionica di Nemesis, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
 
 [[projects]]
 slug = "lamp"
@@ -326,10 +324,10 @@ text = { en = "LAMP, with Prof. Andrea Piroddi.", it = "LAMP, con il Prof. Andre
 link = "lamp"
 
 [[experience]]
-period = { en = "2024 – now", it = "2024 – oggi" }
-role = { en = "Project manager, avionics", it = "Project manager, avionica" }
+period = "2024 – 2025"
+role = { en = "Project manager, avionics software", it = "Project manager, software di avionica" }
 org = "Aurora Rocketry"
-text = { en = "Flight software and telemetry, team of 7.", it = "Software di volo e telemetria, team di 7 persone." }
+text = { en = "Borealis and Nemesis: flight software and telemetry, team of 7.", it = "Borealis e Nemesis: software di volo e telemetria, team di 7 persone." }
 link = "aurora-rocketry"
 
 [[experience]]
