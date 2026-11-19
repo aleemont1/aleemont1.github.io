@@ -29,6 +29,7 @@
   {% if s.get("image") %}{{ m.photo(s.image) }}{% endif %}
   {% if s.get("diagram") %}{{ m.diagram(s.diagram, lang, s.caption) }}{% endif %}
   {% endif %}
+  {% if s.get("gallery") %}{{ m.gallery(s.gallery, s.gallery_caption) }}{% endif %}
   {% if s.get("chart") %}{{ m.bar_chart(c.charts[s.chart], num) }}{% endif %}
   {% endfor %}
 

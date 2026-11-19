@@ -140,12 +140,12 @@ links = [
 
 [projects.detail]
 meta = { en = "Avionics software project manager · Borealis (2024) and Nemesis (2025) · team of 7", it = "Project manager del software di avionica · Borealis (2024) e Nemesis (2025) · team di 7 persone" }
-banner = { file = "launch", widths = [800, 1179], w = 1179, h = 786, alt = { en = "A white rocket lifting off from a rail in a green field, trailing white smoke", it = "Un razzo bianco che decolla da una rampa in un campo verde, con una scia di fumo bianco" }, caption = { en = "Launch day. Photo: Aurora Rocketry.", it = "Giorno di lancio. Foto: Aurora Rocketry." } }
+banner = { file = "nemesis-launch", widths = [800, 1400], w = 1400, h = 1729, alt = { en = "Nemesis lifting off from a tall launch tower, with a long white plume, in front of a pine forest", it = "Nemesis che decolla da una torre di lancio, con una lunga scia bianca, davanti a una pineta" }, caption = { en = "Nemesis lifting off at EuRoC 2025.", it = "Il decollo di Nemesis a EuRoC 2025." } }
 intro = { en = [
-  "Aurora Rocketry started in 2024. Borealis, our first rocket, was a test vehicle designed to reach 1,500 m. Nemesis followed in 2025: our first competition rocket, built to carry a 1 kg payload to 3,000 m.",
+  "Aurora Rocketry started in 2024. Borealis, our first rocket, was a test vehicle designed to reach 1,500 m. Nemesis followed in 2025: our first competition rocket, built to carry a 1 kg payload to 3,000 m. It launched at EuRoC 2025, the European Rocketry Challenge.",
   "On both I was the project manager of the avionics software, with a team of seven. The flight computer of Borealis and its telemetry are what my bachelor's thesis is about.",
 ], it = [
-  "Aurora Rocketry è nata nel 2024. Borealis, il nostro primo razzo, era un veicolo di test progettato per arrivare a 1.500 m. Nel 2025 è arrivato Nemesis, il primo razzo da competizione, progettato per portare un payload di 1 kg a 3.000 m.",
+  "Aurora Rocketry è nata nel 2024. Borealis, il nostro primo razzo, era un veicolo di test progettato per arrivare a 1.500 m. Nel 2025 è arrivato Nemesis, il primo razzo da competizione, progettato per portare un payload di 1 kg a 3.000 m. È stato lanciato a EuRoC 2025, la European Rocketry Challenge.",
   "Su entrambi sono stato il project manager del software di avionica, con un team di sette persone. Il flight computer di Borealis e la sua telemetria sono l'argomento della mia tesi triennale.",
 ] }
 
@@ -184,14 +184,26 @@ body = { en = [
 heading = { en = "Nemesis", it = "Nemesis" }
 body = { en = [
   "For Nemesis the avionics moved to the round white board in the photo, and the flight software became a state machine with 12 states, from calibration on the pad to recovered on the ground. The code on the screen is the transition out of powered flight: it waits for a sustained drop in acceleration before switching to the ballistic phase. The parachutes fire on entering apogee.",
-  "Next to it, Nemesis carried a second, independent flight computer: a commercial one, based on the Cats Vega. The software for the next rocket refines this one, but the base and the states are the same.",
 ], it = [
   "Per Nemesis l'avionica è passata alla scheda bianca rotonda della foto, e il software di volo è diventato una macchina a stati con 12 stati, dalla calibrazione sulla rampa al razzo recuperato. Il codice sullo schermo è la transizione che chiude il volo propulso: aspetta un calo prolungato dell'accelerazione prima di passare alla fase balistica. I paracadute partono all'ingresso in apogeo.",
-  "Accanto, Nemesis aveva un secondo flight computer indipendente: uno commerciale, basato su Cats Vega. Il software del razzo successivo raffina questo, ma la base e gli stati sono gli stessi.",
 ] }
 diagram = "flight-states"
 caption = { en = "The 12 flight states of the Nemesis flight software.", it = "I 12 stati di volo del software di Nemesis." }
 image = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "The round white Nemesis avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "La scheda di avionica bianca e rotonda di Nemesis davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The Nemesis avionics board, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La scheda di avionica di Nemesis, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
+
+[[projects.detail.sections]]
+heading = { en = "Nemesis at EuRoC 2025", it = "Nemesis a EuRoC 2025" }
+body = { en = [
+  "In the electronics bay our board flew next to a second, independent flight computer: a commercial one, based on the Cats Vega. Nemesis launched at EuRoC 2025, and the software for the next rocket refines this one: the base and the states are the same.",
+], it = [
+  "Nella electronics bay la nostra scheda ha volato accanto a un secondo flight computer indipendente: uno commerciale, basato su Cats Vega. Nemesis è stato lanciato a EuRoC 2025, e il software del razzo successivo raffina questo: la base e gli stati sono gli stessi.",
+] }
+image = { file = "nemesis-ebay", widths = [714], w = 714, h = 952, alt = { en = "The Nemesis electronics bay on a table: round boards with green and pink LEDs, stacked on threaded rods with twisted wiring, under an aluminium bulkhead", it = "La electronics bay di Nemesis su un tavolo: schede rotonde con LED verdi e rosa, impilate su barre filettate con cavi intrecciati, sotto una paratia in alluminio" }, caption = { en = "The Nemesis electronics bay, powered up on the bench.", it = "La electronics bay di Nemesis, accesa al banco." } }
+gallery = [
+  { file = "team-euroc-before", widths = [996], w = 996, h = 560, alt = { en = "The Aurora Rocketry team cheering with an Italian flag in front of the European Rocketry Challenge backdrop", it = "Il team di Aurora Rocketry che esulta con una bandiera italiana davanti al pannello della European Rocketry Challenge" } },
+  { file = "team-euroc-after", widths = [1080], w = 1080, h = 608, alt = { en = "The team outdoors on dusty ground, arms raised, holding shovels and an Italian flag", it = "Il team all'aperto su un terreno polveroso, con le braccia alzate, pale e una bandiera italiana" } },
+]
+gallery_caption = { en = "The team at EuRoC 2025, before and after the launch.", it = "Il team a EuRoC 2025, prima e dopo il lancio." }
 
 [[projects]]
 slug = "lamp"
