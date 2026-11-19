@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}404 · {{ c.site.name }}{% endblock %}
+{% block main %}
+<section class="hero">
+  <div class="wrap narrow">
+    <p class="eyebrow"><span class="led off" aria-hidden="true"></span>404</p>
+    <h1>{{ ui.not_found_title }}</h1>
+    <p class="lede">{{ ui.not_found_text }}</p>
+    <p><a class="btn" href="/">{{ icon['arrow-left'] }} {{ ui.not_found_home }}</a></p>
+  </div>
+</section>
+{% endblock %}

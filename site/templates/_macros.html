@@ -1,0 +1,93 @@
+{# Shared pieces: link rows, tags, diagrams and charts. #}
+
+{% macro tags(items) %}
+<ul class="tags">{% for t in items %}<li>{{ t }}</li>{% endfor %}</ul>
+{% endmacro %}
+
+{% macro project_links(project, ui, icon, prefix, with_detail=true) %}
+<div class="link-row">
+  {% if with_detail and project.detail is defined %}
+  <a class="btn" href="{{ prefix }}/work/{{ project.slug }}/">{{ ui.read_case }} {{ icon['arrow-right'] }}</a>
+  {% endif %}
+  {% for link in project.links | default([]) %}
+  <a class="btn btn-ghost" href="{{ link.url }}">
+    {% if link.kind == 'code' %}{{ icon['github-logo'] }}{% else %}{{ icon['file-pdf'] }}{% endif %}
+    {{ ui[link.kind] }}
+  </a>
+  {% endfor %}
+  {% if project.get("private") %}
+  <span class="private">{{ icon['lock-simple'] }} {{ ui.code_private }}</span>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# Atlas: the 12 flight states, grouped by phase. #}
+{% macro atlas_diagram(lang, compact=false) %}
+{% set phases = [
+  ({'en': 'Ground', 'it': 'A terra'}, ['INACTIVE', 'CALIBRATING', 'GROUND_SERVICES', 'READY_FOR_LAUNCH']),
+  ({'en': 'Flight', 'it': 'Volo'}, ['LAUNCH', 'ACCELERATED_FLIGHT', 'BALLISTIC_FLIGHT', 'APOGEE']),
+  ({'en': 'Recovery', 'it': 'Recupero'}, ['STABILIZATION', 'DECELERATION', 'LANDING', 'RECOVERED']),
+] %}
+<figure class="diagram fsm{{ ' compact' if compact }}">
+  {% set n = namespace(i=0) %}
+  {% for name, states in phases %}
+  <div class="fsm-phase">
+    <p class="fsm-label">{{ name[lang] }}</p>
+    <ol class="fsm-states" start="{{ n.i }}">
+      {% for s in states %}
+      <li{% if s == 'APOGEE' %} class="key"{% endif %}><span class="fsm-n">{{ '%02d' | format(n.i) }}</span>{{ s | replace('_', ' ') | lower }}</li>
+      {% set n.i = n.i + 1 %}
+      {% endfor %}
+    </ol>
+  </div>
+  {% endfor %}
+  {% if not compact %}
+  <figcaption>{{ {'en': 'The flight state machine. Recovery fires on entering apogee; every state runs only the FreeRTOS tasks it needs.', 'it': "La macchina a stati del volo. Il recupero scatta all'ingresso in apogeo; ogni stato esegue solo i task FreeRTOS che gli servono."}[lang] }}</figcaption>
+  {% endif %}
+</figure>
+{% endmacro %}
+
+{# LAMP: frame layout, and one burst with SACK against Stop-and-Wait. #}
+{% macro lamp_diagram(lang, compact=false) %}
+<figure class="diagram lamp{{ ' compact' if compact }}">
+  <div class="frame" role="img" aria-label="{{ {'en': 'LAMP chunk: 9-byte logical header, payload, 2-byte CRC-16', 'it': 'Pezzo LAMP: header logico di 9 byte, payload, CRC-16 di 2 byte'}[lang] }}">
+    <span class="f-hdr">header <b>9 B</b></span>
+    <span class="f-pay">payload</span>
+    <span class="f-crc">crc16 <b>2 B</b></span>
+  </div>
+  <div class="timeline">
+    <p class="tl-label">Stop-and-Wait</p>
+    <div class="tl-row" aria-label="{{ {'en': 'Stop-and-Wait: one acknowledgment after every chunk', 'it': 'Stop-and-Wait: una conferma dopo ogni pezzo'}[lang] }}" role="img">
+      {% for i in range(6) %}<span class="d">{{ i }}</span><span class="a">ack</span>{% endfor %}
+    </div>
+    <p class="tl-label">LAMP · SACK-ARQ</p>
+    <div class="tl-row" role="img" aria-label="{{ {'en': 'LAMP: a burst of chunks, one selective acknowledgment bitmap, then only the missing chunk is resent', 'it': 'LAMP: una raffica di pezzi, una sola bitmap di conferme selettive, poi solo il pezzo mancante viene ritrasmesso'}[lang] }}">
+      {% for i in range(8) %}<span class="d{{ ' lost' if i == 3 }}">{{ i }}</span>{% endfor %}<span class="a sack">sack 11101111</span><span class="d re">3</span>
+    </div>
+  </div>
+  {% if not compact %}
+  <figcaption>{{ {'en': 'Above, one chunk on the air. Below, the same transfer with an acknowledgment per chunk versus one bitmap per burst: chunk 3 is lost, and only chunk 3 is sent again.', 'it': 'In alto, un pezzo in trasmissione. Sotto, lo stesso trasferimento con una conferma per pezzo e con una bitmap per raffica: il pezzo 3 va perso, e viene ritrasmesso solo quello.'}[lang] }}</figcaption>
+  {% endif %}
+</figure>
+{% endmacro %}
+
+{% macro diagram(name, lang, compact=false) %}
+{% if name == 'atlas' %}{{ atlas_diagram(lang, compact) }}{% elif name == 'lamp' %}{{ lamp_diagram(lang, compact) }}{% endif %}
+{% endmacro %}
+
+{# Horizontal bar chart in HTML: labels and values are real text. #}
+{% macro bar_chart(chart, num) %}
+<figure class="chart">
+  <figcaption class="chart-title">{{ chart.title }}</figcaption>
+  <div class="bars">
+    {% for bar in chart.bars %}
+    <div class="bar-row{{ ' hl' if bar.highlight }}" title="{{ bar.label }}: {{ num(bar.value) }} {{ chart.unit }}">
+      <span class="bar-label">{{ bar.label }}</span>
+      <span class="bar-track"><span class="bar" style="--w: {{ (bar.value / chart.max * 100) | round(2) }}%"></span></span>
+      <span class="bar-value">{{ num(bar.value) }} {{ chart.unit }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="chart-note">{{ chart.note }}</p>
+</figure>
+{% endmacro %}
