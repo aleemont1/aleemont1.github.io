@@ -183,10 +183,14 @@ body = { en = [
 [[projects.detail.sections]]
 heading = { en = "Nemesis", it = "Nemesis" }
 body = { en = [
-  "For Nemesis the avionics moved to the round white board in the photo, and the flight software is organised as a state machine: the code on the screen is the transition out of powered flight, which waits for a sustained drop in acceleration before switching to the ballistic phase. Next to it, Nemesis carried a second, independent flight computer: a commercial one, based on the Cats Vega.",
+  "For Nemesis the avionics moved to the round white board in the photo, and the flight software became a state machine with 12 states, from calibration on the pad to recovered on the ground. The code on the screen is the transition out of powered flight: it waits for a sustained drop in acceleration before switching to the ballistic phase. The parachutes fire on entering apogee.",
+  "Next to it, Nemesis carried a second, independent flight computer: a commercial one, based on the Cats Vega. The software for the next rocket refines this one, but the base and the states are the same.",
 ], it = [
-  "Per Nemesis l'avionica è passata alla scheda bianca rotonda della foto, e il software di volo è organizzato come una macchina a stati: il codice sullo schermo è la transizione che chiude il volo propulso, e aspetta un calo prolungato dell'accelerazione prima di passare alla fase balistica. Accanto, Nemesis aveva un secondo flight computer indipendente: uno commerciale, basato su Cats Vega.",
+  "Per Nemesis l'avionica è passata alla scheda bianca rotonda della foto, e il software di volo è diventato una macchina a stati con 12 stati, dalla calibrazione sulla rampa al razzo recuperato. Il codice sullo schermo è la transizione che chiude il volo propulso: aspetta un calo prolungato dell'accelerazione prima di passare alla fase balistica. I paracadute partono all'ingresso in apogeo.",
+  "Accanto, Nemesis aveva un secondo flight computer indipendente: uno commerciale, basato su Cats Vega. Il software del razzo successivo raffina questo, ma la base e gli stati sono gli stessi.",
 ] }
+diagram = "flight-states"
+caption = { en = "The 12 flight states of the Nemesis flight software.", it = "I 12 stati di volo del software di Nemesis." }
 image = { file = "old-avionics", widths = [800, 1600], w = 1600, h = 1200, alt = { en = "The round white Nemesis avionics board in front of a monitor showing C++ code for the ACCELERATED_FLIGHT state of the flight state machine", it = "La scheda di avionica bianca e rotonda di Nemesis davanti a un monitor con il codice C++ dello stato ACCELERATED_FLIGHT della macchina a stati di volo" }, caption = { en = "The Nemesis avionics board, with the flight state machine on screen. Photo: Aurora Rocketry.", it = "La scheda di avionica di Nemesis, con la macchina a stati di volo sullo schermo. Foto: Aurora Rocketry." } }
 
 [[projects]]

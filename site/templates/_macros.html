@@ -8,8 +8,8 @@
 </p>
 {% endmacro %}
 
-{# Atlas: the 12 flight states, grouped by phase. #}
-{% macro atlas_diagram(lang, caption, compact=false) %}
+{# The 12 flight states (Nemesis flight software), grouped by phase. #}
+{% macro flight_states_diagram(lang, caption, compact=false) %}
 {% set phases = [
   ({'en': 'Ground', 'it': 'A terra'}, ['INACTIVE', 'CALIBRATING', 'GROUND_SERVICES', 'READY_FOR_LAUNCH']),
   ({'en': 'Flight', 'it': 'Volo'}, ['LAUNCH', 'ACCELERATED_FLIGHT', 'BALLISTIC_FLIGHT', 'APOGEE']),
@@ -53,7 +53,7 @@
 {% endmacro %}
 
 {% macro diagram(name, lang, caption, compact=false) %}
-{% if name == 'atlas' %}{{ atlas_diagram(lang, caption, compact) }}{% elif name == 'lamp' %}{{ lamp_diagram(lang, caption, compact) }}{% endif %}
+{% if name == 'flight-states' %}{{ flight_states_diagram(lang, caption, compact) }}{% elif name == 'lamp' %}{{ lamp_diagram(lang, caption, compact) }}{% endif %}
 {% endmacro %}
 
 {# Horizontal bar chart in HTML: labels and values are real text. #}
