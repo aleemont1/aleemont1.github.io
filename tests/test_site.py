@@ -133,6 +133,14 @@ class BuildTest(unittest.TestCase):
                     ids.feed(target.read_text())
                     self.assertIn(anchor, ids.ids, f"{rel}: missing anchor {href}")
 
+    def test_images_exist_and_have_alt_text(self):
+        for rel in self.pages:
+            html = (self.out / rel).read_text()
+            for tag in re.findall(r"<img [^>]*>", html):
+                self.assertRegex(tag, r'alt="[^"]+"', f"{rel}: image without alt text")
+                for src in re.findall(r'(/assets/img/[^" ,]+)', tag):
+                    self.assertTrue((self.out / src.lstrip("/")).exists(), f"{rel}: missing {src}")
+
     def test_offline_build_drops_optional_sections(self):
         with tempfile.TemporaryDirectory() as tmp:
             build.build(Path(tmp), offline=True)

@@ -22,7 +22,7 @@
   <article class="project">
     <h3><a href="{{ prefix }}/work/{{ p.slug }}/">{{ p.title }}</a> <span class="subtitle">{{ p.subtitle }}</span></h3>
     <p>{{ p.summary }}</p>
-    {{ m.diagram(p.detail.diagram, lang, p.caption, compact=true) }}
+    {% if p.get("image") %}{{ m.photo(p.image) }}{% else %}{{ m.diagram(p.detail.diagram, lang, p.caption, compact=true) }}{% endif %}
     <p class="stack">{{ p.stack | join(' · ') }}</p>
     {{ m.project_links(p, ui, icon, prefix) }}
   </article>

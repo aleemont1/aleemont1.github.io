@@ -8,14 +8,18 @@
   <h1>{{ project.title }}</h1>
   <p class="role">{{ project.subtitle }}</p>
   <p class="stack">{{ project.detail.meta }}</p>
+  {% if project.detail.get("banner") %}{{ m.photo(project.detail.banner, "banner", eager=true) }}{% endif %}
 
   {% for para in project.detail.intro %}<p>{{ para }}</p>{% endfor %}
   {{ m.project_links(project, ui, icon, prefix, with_detail=false) }}
 
   {% if project.detail.get("facts") %}
-  <table class="facts">
-    {% for f in project.detail.facts %}<tr><th scope="row">{{ f.k }}</th><td>{{ f.v }}</td></tr>{% endfor %}
-  </table>
+  <div class="hw{{ ' with-photo' if project.detail.get('photo') }}">
+    {% if project.detail.get("photo") %}{{ m.photo(project.detail.photo) }}{% endif %}
+    <table class="facts">
+      {% for f in project.detail.facts %}<tr><th scope="row">{{ f.k }}</th><td>{{ f.v }}</td></tr>{% endfor %}
+    </table>
+  </div>
   {% endif %}
 
   {{ m.diagram(project.detail.diagram, lang, project.caption) }}
@@ -23,6 +27,7 @@
   {% for s in project.detail.sections %}
   <h2>{{ s.heading }}</h2>
   {% for para in s.body %}<p>{{ para }}</p>{% endfor %}
+  {% if s.get("image") %}{{ m.photo(s.image) }}{% endif %}
   {% if s.get("chart") %}{{ m.bar_chart(c.charts[s.chart], num) }}{% endif %}
   {% endfor %}
 

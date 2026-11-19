@@ -72,3 +72,13 @@
   <p class="chart-note">{{ chart.note }}</p>
 </figure>
 {% endmacro %}
+
+{# A photo with srcset. `img` comes from content.toml: file, widths, w, h, alt, caption. #}
+{% macro photo(img, cls='', eager=false) %}
+<figure class="photo {{ cls }}">
+  <img src="/assets/img/{{ img.file }}-{{ img.widths[-1] }}.webp"
+       {% if img.widths | length > 1 %}srcset="{% for w in img.widths %}/assets/img/{{ img.file }}-{{ w }}.webp {{ w }}w{{ ', ' if not loop.last }}{% endfor %}" sizes="(max-width: 46rem) 100vw, 43.5rem"{% endif %}
+       width="{{ img.w }}" height="{{ img.h }}" alt="{{ img.alt }}" {% if not eager %}loading="lazy" {% endif %}decoding="async">
+  <figcaption>{{ img.caption }}</figcaption>
+</figure>
+{% endmacro %}

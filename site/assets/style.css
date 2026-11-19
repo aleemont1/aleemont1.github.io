@@ -265,3 +265,12 @@ h3 { font-size: 1.1rem; }
   .heatmap rect { stroke: CanvasText; }
   .bar { background: Highlight; }
 }
+
+/* Photos */
+.photo { margin: 1.5rem 0 1.25rem; }
+.photo img { display: block; width: 100%; height: auto; border-radius: 0.75rem; background: var(--surface); }
+.photo figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.8125rem; }
+.photo.banner img { background: #fff; padding: 0.75rem 1rem; border: 1px solid var(--border); }
+.hw.with-photo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1.5rem; align-items: start; margin: 1.5rem 0; }
+.hw.with-photo .photo, .hw.with-photo .facts { margin: 0; }
+@media (max-width: 34rem) { .hw.with-photo { grid-template-columns: 1fr; } }
