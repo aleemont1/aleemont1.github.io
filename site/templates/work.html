@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ project.title }}: {{ project.subtitle }} · {{ c.site.name }}{% endblock %}
+{% block description %}{{ project.summary }}{% endblock %}
+{% block main %}
+<article class="case">
+  <div class="wrap narrow">
+    <p><a class="back" href="{{ prefix }}/#work">{{ icon['arrow-left'] }} {{ ui.back }}</a></p>
+    <p class="eyebrow"><span class="led" aria-hidden="true"></span>{{ project.subtitle }}</p>
+    <h1>{{ project.title }}</h1>
+    <p class="lede">{{ project.summary }}</p>
+    {{ m.project_links(project, ui, icon, prefix, with_detail=false) }}
+
+    <dl class="facts">
+      {% for f in project.detail.facts %}
+      <div><dt>{{ f.k }}</dt><dd>{{ f.v }}</dd></div>
+      {% endfor %}
+    </dl>
+  </div>
+
+  <div class="wrap narrow">
+    {{ m.diagram(project.detail.diagram, lang) }}
+    {% for s in project.detail.sections %}
+    <section class="case-section">
+      <h2>{{ s.heading }}</h2>
+      {% for para in s.body %}<p>{{ para }}</p>{% endfor %}
+      {% if s.get("chart") %}{{ m.bar_chart(c.charts[s.chart], num) }}{% endif %}
+    </section>
+    {% endfor %}
+
+    {% if project.get("highlights") %}
+    <section class="case-section">
+      <ul class="highlights">{% for h in project.highlights %}<li>{{ h }}</li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+
+    {% if next_project %}
+    <a class="next" href="{{ prefix }}/work/{{ next_project.slug }}/">
+      <span class="kicker">{{ next_project.subtitle }}</span>
+      <span class="next-title">{{ next_project.title }} {{ icon['arrow-right'] }}</span>
+    </a>
+    {% endif %}
+  </div>
+</article>
+{% endblock %}

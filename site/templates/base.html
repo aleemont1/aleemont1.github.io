@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ c.site.name }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ c.site.description }}{% endblock %}">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)">
+{% if alternates %}
+<link rel="canonical" href="{{ alternates[lang] }}">
+{% for l, href in alternates.items() %}
+<link rel="alternate" hreflang="{{ l }}" href="{{ href }}">
+{% endfor %}
+<link rel="alternate" hreflang="x-default" href="{{ alternates[default_language] }}">
+<meta property="og:url" content="{{ alternates[lang] }}">
+{% endif %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.description() }}">
+<meta property="og:locale" content="{{ 'it_IT' if lang == 'it' else 'en_US' }}">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/style.css?v={{ css_hash }}">
+<link rel="alternate" type="application/rss+xml" title="Blog" href="{{ c.site.blog }}/rss.xml">
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">{{ ui.skip }}</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ prefix }}/">
+      <span class="brand-mark" aria-hidden="true">am</span>
+      <span class="brand-name">{{ c.site.name }}</span>
+    </a>
+    <nav class="nav" aria-label="{{ ui.nav_work }}">
+      <a href="{{ prefix }}/#work">{{ ui.nav_work }}</a>
+      <a href="{{ prefix }}/#experience">{{ ui.nav_experience }}</a>
+      <a href="{{ prefix }}/#writing">{{ ui.nav_writing }}</a>
+      <a href="{{ prefix }}/#documents">{{ ui.nav_documents }}</a>
+    </nav>
+    <div class="actions">
+      {% if other_lang %}
+      <a class="icon-btn lang" href="{{ other_prefix }}{{ path }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}" title="{{ ui.lang_switch }}" aria-label="{{ ui.lang_switch }}">{{ ui.lang_switch_short }}</a>
+      {% endif %}
+      <button class="icon-btn theme-toggle" type="button" title="{{ ui.theme }}" aria-label="{{ ui.theme }}">{{ icon.sun }}{{ icon.moon }}</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+{% block main %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>© {{ c.site.name }}</p>
+    <p class="muted">{{ ui.footer_built }} <a href="{{ c.site.source }}">{{ ui.footer_source }}</a></p>
+  </div>
+</footer>
+<script>
+(function(){
+  var r=document.documentElement,b=document.querySelector('.theme-toggle');
+  function cur(){return r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+  if(b){b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}})}
+  var s=document.querySelector('.heatmap-scroll');if(s)s.scrollLeft=s.scrollWidth;
+})();
+</script>
+</body>
+</html>

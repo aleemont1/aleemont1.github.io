@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+<title>Blog</title><link>https://example.com</link><description>Test feed</description>
+<item><title>Older post</title><link>https://example.com/older/</link><pubDate>Mon, 02 Nov 2026 09:00:00 GMT</pubDate></item>
+<item><title>Re-learning C without an IDE</title><link>https://example.com/learning-c/</link><pubDate>Wed, 18 Nov 2026 09:00:00 GMT</pubDate></item>
+<item><title></title><link>https://example.com/untitled/</link></item>
+</channel></rss>

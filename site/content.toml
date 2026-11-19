@@ -1,0 +1,423 @@
+# Portfolio content.
+#
+# Every user-facing string is either a plain string (same in every language)
+# or a table with one entry per language: { en = "...", it = "..." }.
+# Lists of strings follow the same rule: ["a", "b"] or { en = [...], it = [...] }.
+# The build fails if a translated field is missing a language.
+
+languages = ["en", "it"]
+default_language = "en"
+
+[site]
+url = "https://aleemont.dev"
+name = "Alessandro Monticelli"
+github_user = "aleemont1"
+email = "alessandro.monticelli@live.it"
+linkedin = "https://www.linkedin.com/in/ale-mont/"
+github = "https://github.com/aleemont1"
+blog = "https://blog.aleemont.dev"
+source = "https://github.com/aleemont1/aleemont1.github.io"
+cv = { en = "https://aleemont1.github.io/curriculum-vitae/resume.pdf", it = "https://aleemont1.github.io/curriculum-vitae/resume-it.pdf" }
+description = { en = "Alessandro Monticelli, embedded software engineer: flight computer firmware, LoRa transport protocols and distributed systems.", it = "Alessandro Monticelli, embedded software engineer: firmware per flight computer, protocolli di trasporto su LoRa e sistemi distribuiti." }
+
+# Interface strings
+[ui.en]
+nav_work = "Work"
+nav_experience = "Experience"
+nav_writing = "Writing"
+nav_documents = "Documents"
+section_work = "Selected work"
+section_more = "More projects"
+section_activity = "Activity"
+section_experience = "Experience"
+section_education = "Education"
+section_skills = "Toolbox"
+section_writing = "Writing"
+section_documents = "Documents"
+read_case = "Read the case study"
+code = "Code"
+code_private = "Code private"
+paper = "Paper"
+thesis = "Thesis"
+back = "All work"
+role = "Role"
+period = "Period"
+stack = "Stack"
+contributions = "{n} contributions on GitHub in the last year"
+contributions_less = "Less"
+contributions_more = "More"
+contributions_cell = "{n} contributions on {date}"
+contributions_cell_one = "1 contribution on {date}"
+contributions_cell_none = "No contributions on {date}"
+writing_intro = "I write about work, projects and things I am learning on my blog."
+writing_all = "All posts"
+writing_empty = "Posts are on the way."
+footer_built = "Static site generated with Python, deployed by GitHub Actions."
+footer_source = "Source"
+theme = "Toggle theme"
+lang_switch = "Italiano"
+lang_switch_short = "IT"
+skip = "Skip to content"
+email = "Email"
+cv = "CV"
+blog = "Blog"
+not_found_title = "Page not found"
+not_found_text = "This page does not exist, or it moved."
+not_found_home = "Back to the home page"
+
+[ui.it]
+nav_work = "Progetti"
+nav_experience = "Esperienza"
+nav_writing = "Scritti"
+nav_documents = "Documenti"
+section_work = "Progetti principali"
+section_more = "Altri progetti"
+section_activity = "Attività"
+section_experience = "Esperienza"
+section_education = "Formazione"
+section_skills = "Strumenti"
+section_writing = "Scritti"
+section_documents = "Documenti"
+read_case = "Leggi il caso di studio"
+code = "Codice"
+code_private = "Codice privato"
+paper = "Paper"
+thesis = "Tesi"
+back = "Tutti i progetti"
+role = "Ruolo"
+period = "Periodo"
+stack = "Stack"
+contributions = "{n} contributi su GitHub nell'ultimo anno"
+contributions_less = "Meno"
+contributions_more = "Più"
+contributions_cell = "{n} contributi il {date}"
+contributions_cell_one = "1 contributo il {date}"
+contributions_cell_none = "Nessun contributo il {date}"
+writing_intro = "Sul blog scrivo di lavoro, progetti e cose che sto imparando."
+writing_all = "Tutti i post"
+writing_empty = "I primi post sono in arrivo."
+footer_built = "Sito statico generato con Python, pubblicato da GitHub Actions."
+footer_source = "Sorgente"
+theme = "Cambia tema"
+lang_switch = "English"
+lang_switch_short = "EN"
+skip = "Vai al contenuto"
+email = "Email"
+cv = "CV"
+blog = "Blog"
+not_found_title = "Pagina non trovata"
+not_found_text = "Questa pagina non esiste, o è stata spostata."
+not_found_home = "Torna alla home"
+
+[hero]
+eyebrow = { en = "Embedded software engineer", it = "Embedded software engineer" }
+title = { en = "Firmware and radio protocols for systems that have to work on the first try.", it = "Firmware e protocolli radio per sistemi che devono funzionare al primo colpo." }
+lede = { en = "I'm Alessandro. I lead the avionics software of the Aurora Rocketry Team, research reliable data transfer over LoRa at the University of Bologna, and study for an MSc in Computer Science and Engineering.", it = "Sono Alessandro. Guido lo sviluppo del software di avionica dell'Aurora Rocketry Team, faccio ricerca sul trasferimento affidabile di dati su LoRa all'Università di Bologna e frequento la laurea magistrale in Ingegneria e Scienze Informatiche." }
+
+# Key figures under the hero. Each one must be backed by a project below.
+[[stats]]
+value = "295,800"
+label = { en = "ns-3 simulation runs behind LAMP", it = "simulazioni ns-3 per valutare LAMP" }
+
+[[stats]]
+value = "+22–35%"
+label = { en = "urban LoRa range vs Stop-and-Wait", it = "portata LoRa urbana rispetto a Stop-and-Wait" }
+
+[[stats]]
+value = "12"
+label = { en = "flight states in Atlas, at 50 Hz", it = "stati di volo in Atlas, a 50 Hz" }
+
+[[stats]]
+value = "7"
+label = { en = "developers in the avionics team I lead", it = "sviluppatori nel team di avionica che guido" }
+
+# ---------------------------------------------------------------------------
+# Projects. `featured = true` puts the project in the large cards at the top;
+# a `detail` table also generates a case-study page at /work/<slug>/.
+# ---------------------------------------------------------------------------
+
+[[projects]]
+slug = "atlas"
+featured = true
+title = "Atlas"
+subtitle = { en = "Flight software for sounding rockets", it = "Software di volo per razzi sonda" }
+tags = ["ESP32-S3", "FreeRTOS", "ESP-IDF", "C++", "LoRa"]
+summary = { en = "Flight computer firmware for the Aurora Rocketry Team (University of Bologna). It reads the sensors, runs the flight state machine, fires the recovery charges, records the flight to external flash and streams live telemetry over LoRa.", it = "Il firmware del flight computer dell'Aurora Rocketry Team (Università di Bologna). Legge i sensori, gestisce la macchina a stati del volo, aziona il recupero, registra il volo su flash esterna e trasmette la telemetria in tempo reale su LoRa." }
+highlights = { en = [
+  "I lead the avionics software as project manager, with a team of 7 developers.",
+  "Each flight state starts only the FreeRTOS tasks it needs. The state machine runs at 50 Hz under a task watchdog.",
+  "Hardware-in-the-loop builds swap the real sensors for a RocketPy simulation over TCP.",
+], it = [
+  "Guido lo sviluppo del software di avionica come project manager, con un team di 7 sviluppatori.",
+  "Ogni stato di volo avvia solo i task FreeRTOS che gli servono. La macchina a stati gira a 50 Hz sotto un task watchdog.",
+  "Le build hardware-in-the-loop sostituiscono i sensori reali con una simulazione RocketPy via TCP.",
+] }
+links = [
+  { kind = "code", url = "https://github.com/AuroraRocketryTeam/atlas" },
+  { kind = "thesis", url = "https://aleemont1.github.io/bachelor-thesis/pdf/tesi.pdf" },
+]
+
+[projects.detail]
+diagram = "atlas"
+facts = [
+  { k = { en = "Role", it = "Ruolo" }, v = { en = "Project manager, lead avionics", it = "Project manager, responsabile avionica" } },
+  { k = { en = "Period", it = "Periodo" }, v = { en = "April 2024 – present", it = "Aprile 2024 – oggi" } },
+  { k = { en = "MCU", it = "MCU" }, v = "ESP32-S3, 16 MB flash, dual core" },
+  { k = { en = "Sensors", it = "Sensori" }, v = "BNO055 IMU, LIS3DHTR, MS5611, GNSS" },
+  { k = { en = "Radio", it = "Radio" }, v = "EByte E220 LoRa, 868 MHz" },
+  { k = { en = "Stack", it = "Stack" }, v = "C++, ESP-IDF 5.5, FreeRTOS, RocketPy (HIL)" },
+]
+
+[[projects.detail.sections]]
+heading = { en = "The problem", it = "Il problema" }
+body = { en = [
+  "A sounding rocket gives you one flight. The firmware has to detect launch, track the climb, find apogee and deploy the parachutes at the right moment, while recording everything and keeping the ground station informed. There is no second attempt if a task stalls or a sensor drops out.",
+], it = [
+  "Un razzo sonda vola una volta sola. Il firmware deve riconoscere il lancio, seguire la salita, individuare l'apogeo e aprire i paracadute al momento giusto, registrando tutto e tenendo aggiornata la stazione di terra. Se un task si blocca o un sensore smette di rispondere non c'è un secondo tentativo.",
+] }
+
+[[projects.detail.sections]]
+heading = { en = "How it works", it = "Come funziona" }
+body = { en = [
+  "Atlas is built around a 12-state flight state machine, from calibration and pre-launch checks to recovery. The state machine runs as a 50 Hz FreeRTOS task guarded by a watchdog. On every transition it compares the set of tasks the new state needs with the ones already running, stops the rest and starts what is missing, so a state never pays for work it doesn't need.",
+  "Sensor polling and altitude estimation run on one core at 50 Hz; storage, telemetry and the ground dashboard run on the other. Apogee is detected from barometric altitude: a median filter smooths the readings and a least-squares fit over a sliding window estimates vertical velocity, with a time lockout and a time backstop as safety nets.",
+  "Before launch the board serves a web dashboard over its own Wi-Fi access point, used to check sensor health, edit flight parameters and update the firmware. Parameters are validated and frozen into an immutable snapshot when the rocket is declared ready for launch.",
+], it = [
+  "Atlas ruota intorno a una macchina a stati di volo con 12 stati, dalla calibrazione e i controlli pre-lancio fino al recupero. La macchina a stati è un task FreeRTOS a 50 Hz protetto da un watchdog. A ogni transizione confronta i task richiesti dal nuovo stato con quelli già attivi, ferma quelli inutili e avvia quelli mancanti: nessuno stato spende risorse per lavoro che non gli serve.",
+  "Lettura dei sensori e stima dell'altitudine girano su un core a 50 Hz; salvataggio, telemetria e dashboard di terra sull'altro. L'apogeo viene rilevato dall'altitudine barometrica: un filtro mediano pulisce le letture e una regressione ai minimi quadrati su finestra mobile stima la velocità verticale, con un blocco temporale e un limite massimo di tempo come reti di sicurezza.",
+  "Prima del lancio la scheda espone una dashboard web tramite un proprio access point Wi-Fi, usata per controllare lo stato dei sensori, modificare i parametri di volo e aggiornare il firmware. I parametri vengono validati e congelati in uno snapshot immutabile quando il razzo è dichiarato pronto al lancio.",
+] }
+
+[[projects.detail.sections]]
+heading = { en = "Testing without flying", it = "Testare senza volare" }
+body = { en = [
+  "Flights are rare, so the firmware has a hardware-in-the-loop mode: a RocketPy simulation feeds sensor data to the board over TCP in lockstep, and the real state machine, filters and recovery logic react to it. A guided hardware test routine checks every sensor and output on the bench.",
+  "The telemetry chain behind Atlas became the subject of my bachelor's thesis, and the need to send more than one LoRa frame at a time led to LAMP.",
+], it = [
+  "I voli sono rari, quindi il firmware ha una modalità hardware-in-the-loop: una simulazione RocketPy invia i dati dei sensori alla scheda via TCP in lockstep, e la vera macchina a stati, i filtri e la logica di recupero reagiscono a quei dati. Una routine di test guidata verifica al banco ogni sensore e ogni uscita.",
+  "La catena di telemetria di Atlas è diventata l'argomento della mia tesi triennale, e il bisogno di inviare più di un frame LoRa alla volta ha portato a LAMP.",
+] }
+
+[[projects]]
+slug = "lamp"
+featured = true
+title = "LAMP"
+subtitle = { en = "Reliable bulk data transfer over LoRa", it = "Trasferimento affidabile di dati su LoRa" }
+tags = ["C++17", "LoRa", "ns-3", "SX1262", "Unity"]
+summary = { en = "A lightweight transport protocol that moves payloads far beyond the size of a single LoRa frame. Instead of acknowledging every packet, the receiver answers once per burst with a selective acknowledgment bitmap.", it = "Un protocollo di trasporto leggero che trasferisce payload ben oltre la dimensione di un singolo frame LoRa. Invece di confermare ogni pacchetto, il ricevitore risponde una volta per raffica con una bitmap di conferme selettive." }
+highlights = { en = [
+  "+22–35% range at 90% delivery against Stop-and-Wait in urban channels, and +14–16% goodput at SF7.",
+  "Evaluated over 295,800 ns-3 simulation runs, then validated on a dual ESP32-S3 / SX1262 bench within 7%.",
+  "Journal paper in preparation with Prof. Andrea Piroddi, University of Bologna.",
+], it = [
+  "+22–35% di portata con consegna al 90% rispetto a Stop-and-Wait in canale urbano, e +14–16% di goodput a SF7.",
+  "Valutato con 295.800 simulazioni ns-3 e poi validato su un banco con due ESP32-S3 / SX1262, con scarti entro il 7%.",
+  "Articolo per rivista in preparazione con il Prof. Andrea Piroddi, Università di Bologna.",
+] }
+links = [
+  { kind = "code", url = "https://github.com/aleemont1/LAMP" },
+  { kind = "paper", url = "https://aleemont1.github.io/lora-paper/" },
+]
+
+[projects.detail]
+diagram = "lamp"
+facts = [
+  { k = { en = "Role", it = "Ruolo" }, v = { en = "Researcher, paper author", it = "Ricercatore, autore del paper" } },
+  { k = { en = "Period", it = "Periodo" }, v = { en = "July 2025 – present", it = "Luglio 2025 – oggi" } },
+  { k = { en = "Language", it = "Linguaggio" }, v = "C++17, hardware-agnostic core" },
+  { k = { en = "Radio", it = "Radio" }, v = "Semtech SX1262, LoRa" },
+  { k = { en = "Evaluation", it = "Valutazione" }, v = { en = "ns-3, 295,800 runs; ESP32-S3 bench", it = "ns-3, 295.800 run; banco ESP32-S3" } },
+  { k = { en = "Testing", it = "Test" }, v = "Unity, PlatformIO (native)" },
+]
+
+[[projects.detail.sections]]
+heading = { en = "The problem", it = "Il problema" }
+body = { en = [
+  "LoRa radios reach kilometres on very little power, but a single frame carries at most about 255 bytes and regional duty-cycle limits cap how long you may transmit. Sending anything larger, like a block of flight logs, means splitting it into chunks. The common Stop-and-Wait approach acknowledges every chunk: each acknowledgment costs airtime, and each lost acknowledgment burns a retry.",
+], it = [
+  "Le radio LoRa coprono chilometri con pochissima energia, ma un frame trasporta al massimo circa 255 byte e i limiti di duty cycle regionali riducono il tempo di trasmissione disponibile. Per inviare qualcosa di più grande, come un blocco di log di volo, bisogna dividerlo in pezzi. L'approccio Stop-and-Wait conferma ogni pezzo: ogni conferma consuma tempo in aria, e ogni conferma persa brucia un tentativo.",
+] }
+
+[[projects.detail.sections]]
+heading = { en = "The design", it = "Il progetto" }
+body = { en = [
+  "LAMP splits a payload into up to 255 chunks per transmission window. Each chunk carries a 9-byte logical header with compact 8-bit node addressing and a 2-byte CRC-16. Start and end of a message are derived from the chunk index, so the header spends no bytes on them.",
+  "The protocol offers four modes, combining connectionless or stateful operation with best-effort or SACK-ARQ reliability. In the reliable modes the receiver answers only at the end of a burst, with one cumulative bitmap that marks every chunk it is missing; the sender retransmits just those. The core is plain C++17, decoupled from the radio driver, and its unit tests run natively on a desktop.",
+], it = [
+  "LAMP divide un payload in un massimo di 255 pezzi per finestra di trasmissione. Ogni pezzo ha un header logico di 9 byte con indirizzamento compatto a 8 bit e un CRC-16 di 2 byte. Inizio e fine del messaggio si ricavano dall'indice del pezzo, quindi l'header non spende byte per segnalarli.",
+  "Il protocollo offre quattro modalità, combinando funzionamento senza connessione o con stato e affidabilità best-effort o SACK-ARQ. Nelle modalità affidabili il ricevitore risponde solo alla fine di una raffica, con un'unica bitmap cumulativa che indica tutti i pezzi mancanti; il mittente ritrasmette solo quelli. Il core è C++17 puro, separato dal driver radio, e i test unitari girano nativamente su desktop.",
+] }
+
+[[projects.detail.sections]]
+heading = { en = "Results", it = "Risultati" }
+chart = "lamp-range"
+body = { en = [
+  "In urban propagation at SF7 the reliable connectionless mode keeps 90% delivery up to 4.6 km, against 3.4 km for Stop-and-Wait. Across urban channels the gain is 22–35%, and in the lossless region the SACK modes are 14–16% faster than Stop-and-Wait at SF7. Simulated results were validated on a two-board ESP32-S3 / SX1262 bench, within 7%.",
+], it = [
+  "In propagazione urbana a SF7 la modalità affidabile senza connessione mantiene il 90% di consegna fino a 4,6 km, contro 3,4 km di Stop-and-Wait. Nei canali urbani il guadagno è del 22–35%, e dove il canale non perde pacchetti le modalità SACK sono più veloci del 14–16% rispetto a Stop-and-Wait a SF7. I risultati simulati sono stati validati su un banco con due schede ESP32-S3 / SX1262, con scarti entro il 7%.",
+] }
+
+[[projects]]
+slug = "okin-simulator"
+title = "OKIN Simulator"
+subtitle = { en = "RF reverse engineering", it = "Reverse engineering RF" }
+tags = [".NET 8", "Python", "RF"]
+summary = { en = "During my internship at SPOT I reverse-engineered the RF module drivers of smart cinema seats and rebuilt the system's behaviour in software, so the IoT platform could be tested without the hardware.", it = "Durante il tirocinio in SPOT ho fatto reverse engineering dei driver dei moduli RF di poltrone smart per cinema e ho riprodotto il comportamento del sistema in software, per testare la piattaforma IoT senza l'hardware." }
+highlights = { en = ["Cut integration testing time by 60%."], it = ["Tempo dei test di integrazione ridotto del 60%."] }
+private = true
+
+[[projects]]
+slug = "river-monitoring"
+title = "River Monitoring System"
+subtitle = { en = "Embedded Systems & IoT coursework", it = "Corso di Embedded Systems & IoT" }
+tags = ["ESP32", "Arduino", "MQTT", "Java"]
+summary = { en = "A water-level sensing node publishing over MQTT, an Arduino water-channel controller, a Java backend and a Python dashboard. The last of three course assignments at the University of Bologna, with PlatformIO and Gradle CI.", it = "Un nodo che misura il livello dell'acqua e pubblica via MQTT, un controller Arduino per il canale, un backend Java e una dashboard Python. L'ultimo di tre progetti del corso all'Università di Bologna, con CI per PlatformIO e Gradle." }
+links = [{ kind = "code", url = "https://github.com/aleemont1/esiot-23-24-assignment3" }]
+
+[[projects]]
+slug = "parallel-circles"
+title = "Circles, in parallel"
+subtitle = { en = "High Performance Computing", it = "High Performance Computing" }
+tags = ["C", "OpenMP", "MPI"]
+summary = { en = "Course project: a circle-intersection simulation parallelised twice in C, with shared memory (OpenMP) and message passing (MPI), plus strong and weak scaling studies.", it = "Progetto d'esame: una simulazione di intersezione tra cerchi parallelizzata due volte in C, a memoria condivisa (OpenMP) e a scambio di messaggi (MPI), con studi di strong e weak scaling." }
+links = [{ kind = "code", url = "https://github.com/aleemont1/hpc-progetto" }]
+
+[[projects]]
+slug = "flc"
+title = "Federated Lightweight Chat"
+subtitle = { en = "Replication under failures", it = "Replicazione in presenza di guasti" }
+tags = ["Python", "Docker", "Redis", "Traefik"]
+summary = { en = "A group chat built to study replication: every user gets a node with its own SQLite replica, nodes converge through gossip anti-entropy, and vector clocks give every node the same causal order.", it = "Una chat di gruppo costruita per studiare la replicazione: ogni utente ha un nodo con la propria replica SQLite, i nodi convergono con un protocollo gossip anti-entropy e i vector clock danno a tutti lo stesso ordine causale." }
+highlights = { en = ["A node keeps accepting messages while it is partitioned or Redis is down."], it = ["Un nodo continua ad accettare messaggi anche se isolato o con Redis spento."] }
+links = [{ kind = "code", url = "https://github.com/aleemont1/federated-lightweight-chat" }]
+
+[[projects]]
+slug = "climaflow"
+title = "ClimaFlow"
+subtitle = { en = "Weather and grid data at scale", it = "Meteo e rete elettrica su larga scala" }
+tags = ["Scala", "Spark", "InfluxDB", "Docker"]
+summary = { en = "A big data pipeline that joins NOAA weather data with ENTSO-E European grid telemetry, to study how weather puts stress on the power grid.", it = "Una pipeline big data che unisce i dati meteo NOAA alla telemetria della rete elettrica europea ENTSO-E, per studiare come il meteo mette sotto stress la rete." }
+links = [{ kind = "code", url = "https://github.com/aleemont1/ClimaFlow" }]
+
+[[projects]]
+slug = "thecouncil"
+title = "TheCouncil"
+subtitle = { en = "Engineering lenses for AI coding agents", it = "Lenti di ingegneria per agenti AI" }
+tags = ["Agent Skills", "Open source"]
+summary = { en = "Skills for AI coding agents that load one engineer's design constraints at a time (Carmack, Lamport, Muratori, Ousterhout and more), plus a review mode where two opposing lenses critique the same code.", it = "Skill per agenti AI di programmazione che caricano i vincoli di progetto di un ingegnere alla volta (Carmack, Lamport, Muratori, Ousterhout e altri), più una modalità di review in cui due lenti opposte criticano lo stesso codice." }
+links = [{ kind = "code", url = "https://github.com/aleemont1/TheCouncil" }]
+
+# Charts used in case studies. Values come from the LAMP paper (ns-3, Urban
+# channel, SF7, mean over 50 seeds).
+[charts.lamp-range]
+title = { en = "Range at 90% delivery · urban channel, SF7", it = "Portata con consegna al 90% · canale urbano, SF7" }
+unit = "km"
+max = 5
+note = { en = "Mean over 50 seeds in ns-3. Source: LAMP paper, in preparation.", it = "Media su 50 seed in ns-3. Fonte: paper su LAMP, in preparazione." }
+bars = [
+  { label = { en = "LAMP mode 1, no reliability", it = "LAMP modo 1, senza affidabilità" }, value = 2.5, highlight = false },
+  { label = "Stop-and-Wait", value = 3.4, highlight = false },
+  { label = { en = "LAMP mode 4, stateful SACK", it = "LAMP modo 4, SACK con stato" }, value = 4.1, highlight = true },
+  { label = { en = "LAMP mode 3, connectionless SACK", it = "LAMP modo 3, SACK senza connessione" }, value = 4.6, highlight = true },
+]
+
+# ---------------------------------------------------------------------------
+
+[[experience]]
+period = { en = "Sep 2026 – present", it = "Set 2026 – oggi" }
+role = "Software Developer"
+org = { en = "Enterprise software house", it = "Software house, software enterprise" }
+text = { en = "Retrieval and document-processing systems on company data.", it = "Sistemi di retrieval e di elaborazione documentale sui dati aziendali." }
+stack = ["Python", "FastAPI", "PostgreSQL", "Angular"]
+
+[[experience]]
+period = { en = "Jun 2026 – present", it = "Giu 2026 – oggi" }
+role = "Freelance Software Engineer"
+org = { en = "Self-employed", it = "Libero professionista" }
+text = { en = "An ETL pipeline that extracts and normalises promotional data from Italian supermarket chains, including visual parsing of PDF flyers.", it = "Una pipeline ETL che estrae e normalizza i dati promozionali delle catene di supermercati italiane, compreso il parsing visivo dei volantini PDF." }
+stack = ["Python", "SQLite", "Docker", "Multiprocessing"]
+
+[[experience]]
+period = { en = "Jul 2025 – present", it = "Lug 2025 – oggi" }
+role = { en = "Undergraduate Researcher", it = "Ricercatore" }
+org = { en = "University of Bologna, with Prof. Andrea Piroddi", it = "Università di Bologna, con il Prof. Andrea Piroddi" }
+text = { en = "LAMP, a selective-acknowledgment transport protocol for LoRa.", it = "LAMP, un protocollo di trasporto a conferme selettive per LoRa." }
+stack = ["C++17", "ns-3", "SX1262"]
+link = "lamp"
+
+[[experience]]
+period = { en = "Apr 2024 – present", it = "Apr 2024 – oggi" }
+role = { en = "Project Manager, lead avionics", it = "Project Manager, responsabile avionica" }
+org = "Aurora Rocketry Team, University of Bologna"
+text = { en = "ESP32 flight computer software for the team's sounding rockets, with a team of 7 developers.", it = "Il software del flight computer ESP32 per i razzi sonda del team, con un gruppo di 7 sviluppatori." }
+stack = ["C++", "FreeRTOS", "LoRa"]
+link = "atlas"
+
+[[experience]]
+period = { en = "Feb – May 2024", it = "Feb – Mag 2024" }
+role = { en = "Embedded Software Engineer Intern", it = "Embedded Software Engineer, tirocinio" }
+org = "SPOT. Digital Made Simple"
+text = { en = "Reverse-engineered RF drivers for smart cinema seats and built a simulator that cut integration testing time by 60%.", it = "Reverse engineering dei driver RF di poltrone smart per cinema e un simulatore che ha ridotto del 60% i tempi dei test di integrazione." }
+stack = [".NET 8", "Python"]
+
+[[experience]]
+period = { en = "Oct 2023 – Apr 2024", it = "Ott 2023 – Apr 2024" }
+role = "Software Developer"
+org = "UniBo Motorsport"
+text = { en = "Database connection pooling and QR code scanning for the team's warehouse software.", it = "Connection pooling del database e scansione dei QR code per il software di magazzino del team." }
+stack = ["Python", "Vue.js", "MySQL"]
+
+[[education]]
+period = { en = "Sep 2025 – present", it = "Set 2025 – oggi" }
+title = { en = "MSc, Computer Science and Engineering", it = "Laurea magistrale, Ingegneria e Scienze Informatiche" }
+org = { en = "University of Bologna", it = "Università di Bologna" }
+
+[[education]]
+period = { en = "Jan – May 2026", it = "Gen – Mag 2026" }
+title = { en = "Erasmus+ exchange", it = "Scambio Erasmus+" }
+org = "Reykjavík University"
+
+[[education]]
+period = { en = "2021 – 2025", it = "2021 – 2025" }
+title = { en = "BSc, Computer Science and Engineering", it = "Laurea triennale, Ingegneria e Scienze Informatiche" }
+org = { en = "University of Bologna. Thesis on LoRa telemetry for rockets", it = "Università di Bologna. Tesi sulla telemetria LoRa per razzi" }
+
+[[skills]]
+group = { en = "Embedded & firmware", it = "Embedded e firmware" }
+items = ["C", "C++17", "ESP32 / ESP-IDF", "FreeRTOS", "Arduino", "PlatformIO", "Unity (TDD)", "Raspberry Pi"]
+
+[[skills]]
+group = { en = "Radio & networks", it = "Radio e reti" }
+items = ["LoRa (SX1262, E220)", "Protocol design", "ns-3", "MQTT"]
+
+[[skills]]
+group = { en = "Systems & HPC", it = "Sistemi e HPC" }
+items = ["Linux", "OpenMP", "MPI", "CUDA", "Docker", "GitHub Actions"]
+
+[[skills]]
+group = { en = "Software", it = "Software" }
+items = ["Python", "Java", "C# / .NET", "Go", "SQL", "Spark"]
+
+[[documents]]
+title = { en = "Bachelor's thesis", it = "Tesi triennale" }
+text = { en = "Development and optimization of a telemetry system for rockets, with LoRa. July 2025.", it = "Sviluppo e ottimizzazione di un sistema di telemetria per razzi, con LoRa. Luglio 2025." }
+url = "https://aleemont1.github.io/bachelor-thesis/pdf/tesi.pdf"
+kind = "PDF"
+
+[[documents]]
+title = { en = "LAMP paper", it = "Paper su LAMP" }
+text = { en = "A selective-ACK transport protocol for reliable bulk data over LoRa. In preparation.", it = "Un protocollo di trasporto a ACK selettivi per dati voluminosi su LoRa. In preparazione." }
+url = "https://aleemont1.github.io/lora-paper/"
+kind = "Web"
+
+[[documents]]
+title = { en = "Curriculum vitae", it = "Curriculum vitae" }
+text = { en = "Full CV, in English and Italian, with certificates.", it = "CV completo, in inglese e italiano, con certificati." }
+url = "https://aleemont1.github.io/curriculum-vitae/"
+kind = "Web"
+
+[[documents]]
+title = { en = "One-page CV", it = "CV in una pagina" }
+text = { en = "The short version.", it = "La versione breve." }
+url = "https://aleemont1.github.io/one-page-cv/resume.pdf"
+kind = "PDF"
