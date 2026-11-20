@@ -145,6 +145,9 @@ class BuildTest(unittest.TestCase):
         robots = (self.out / "robots.txt").read_text()
         self.assertIn("Disallow: /curriculum-vitae/", robots)
         self.assertIn("Disallow: /one-page-cv/", robots)
+        # The landing pages stay crawlable so their noindex meta is seen.
+        self.assertIn("Allow: /curriculum-vitae/$", robots)
+        self.assertIn("Allow: /one-page-cv/$", robots)
         self.assertIn("Sitemap: https://aleemont.dev/sitemap.xml", robots)
 
     def test_structured_data_and_previews(self):

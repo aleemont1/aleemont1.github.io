@@ -88,8 +88,15 @@ def project(c: dict[str, Any], p: dict[str, Any], url: str, home_url: str, lang:
 
 
 def robots(site_url: str, noindex_paths: list[str]) -> str:
-    lines = ["User-agent: *", *(f"Disallow: {path}" for path in noindex_paths), "Allow: /", "",
-             f"Sitemap: {site_url}/sitemap.xml", ""]
+    """Block everything under each path except its landing page.
+
+    The landing page carries <meta name="robots" content="noindex">, which a
+    crawler can only see if it may fetch the page; the PDFs and previews
+    can't carry it, so they are blocked instead. The longest matching rule
+    wins, so "Allow: /x/$" beats "Disallow: /x/" for the landing page only.
+    """
+    rules = [line for path in noindex_paths for line in (f"Disallow: {path}", f"Allow: {path}$")]
+    lines = ["User-agent: *", *rules, "Allow: /", "", f"Sitemap: {site_url}/sitemap.xml", ""]
     return "\n".join(lines)
 
 
