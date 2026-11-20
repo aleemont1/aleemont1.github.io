@@ -141,6 +141,36 @@ class BuildTest(unittest.TestCase):
                 for src in re.findall(r'(/assets/img/[^" ,]+)', tag):
                     self.assertTrue((self.out / src.lstrip("/")).exists(), f"{rel}: missing {src}")
 
+    def test_robots_hides_cvs_and_points_to_sitemap(self):
+        robots = (self.out / "robots.txt").read_text()
+        self.assertIn("Disallow: /curriculum-vitae/", robots)
+        self.assertIn("Disallow: /one-page-cv/", robots)
+        self.assertIn("Sitemap: https://aleemont.dev/sitemap.xml", robots)
+
+    def test_structured_data_and_previews(self):
+        for rel in self.pages:
+            html = (self.out / rel).read_text()
+            image = re.search(r'<meta property="og:image" content="https://aleemont\.dev(/[^"]+)"', html)
+            self.assertTrue(image and (self.out / image.group(1).lstrip("/")).exists(), f"{rel}: og:image")
+            blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+            if rel == "404.html":
+                self.assertEqual(blocks, [])
+                self.assertIn('<meta name="robots" content="noindex">', html)
+                continue
+            self.assertEqual(len(blocks), 1, rel)
+            graph = json.loads(blocks[0])["@graph"]
+            person = next(n for n in graph if n["@type"] == "Person")
+            self.assertEqual(person["name"], "Alessandro Monticelli")
+            if "/work/" in rel:
+                self.assertTrue(any(n["@type"] == "BreadcrumbList" for n in graph), rel)
+
+    def test_llms_txt_lists_projects_without_cvs(self):
+        text = (self.out / "llms.txt").read_text()
+        self.assertTrue(text.startswith("# Alessandro Monticelli"))
+        self.assertIn("(https://aleemont.dev/work/lamp/)", text)
+        self.assertNotIn("curriculum-vitae", text)
+        self.assertNotIn("one-page-cv", text)
+
     def test_offline_build_drops_optional_sections(self):
         with tempfile.TemporaryDirectory() as tmp:
             build.build(Path(tmp), offline=True)

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}404 · {{ c.site.name }}{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
 {% block main %}
 <section class="intro">
   <h1>{{ ui.not_found_title }}</h1>

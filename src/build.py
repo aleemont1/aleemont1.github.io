@@ -5,7 +5,7 @@
     python -m src.build --activity-json f.json --feed-xml rss.xml   # local fixtures
 
 Pages: / (English), /it/ (Italian), /work/<slug>/ and /it/work/<slug>/ for
-projects with a case study, plus 404.html, sitemap.xml and robots.txt.
+projects with a case study, plus 404.html, sitemap.xml, robots.txt and llms.txt.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 from markupsafe import Markup
 
-from . import activity, content, feed
+from . import activity, content, feed, seo
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
@@ -105,9 +105,10 @@ def build(out: Path, offline: bool = False, activity_json: str | None = None,
         )
 
         heatmap = Markup(activity.render_svg(calendar, ui, lang)) if calendar else None
+        home_url = alternates("/")[lang]
         html = env.get_template("index.html").render(
             **common, path="/", alternates=alternates("/"), heatmap=heatmap,
-            calendar=calendar, posts=posts,
+            calendar=calendar, posts=posts, jsonld=seo.home(c, home_url, lang),
         )
         rel = f"{prefix.lstrip('/')}/index.html".lstrip("/")
         _write(out, rel, html)
@@ -119,6 +120,7 @@ def build(out: Path, offline: bool = False, activity_json: str | None = None,
             html = env.get_template("work.html").render(
                 **common, path=path, alternates=alternates(path), project=project,
                 next_project=projects[(i + 1) % len(projects)] if len(projects) > 1 else None,
+                jsonld=seo.project(c, project, alternates(path)[lang], home_url, lang),
             )
             rel = f"{prefix.lstrip('/')}{path}index.html".lstrip("/")
             _write(out, rel, html)
@@ -127,14 +129,16 @@ def build(out: Path, offline: bool = False, activity_json: str | None = None,
     c = content.localize({k: v for k, v in data.items() if k != "ui"}, default, languages)
     common = dict(c=c, ui=data["ui"][default], lang=default, prefix="", default_language=default,
                   other_lang=None, other_prefix="", num=lambda v: _number(v, default))
-    _write(out, "404.html", env.get_template("404.html").render(**common, path="/404", alternates={}))
+    _write(out, "404.html", env.get_template("404.html").render(**common, path="/404", alternates={}, jsonld=None))
     written.append("404.html")
 
     urls = [site["url"] + _prefix(l, default) + p for l in languages for p in pages]
     sitemap = env.get_template("sitemap.xml").render(urls=urls)
     (out / "sitemap.xml").write_text(sitemap, encoding="utf-8")
-    (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {site['url']}/sitemap.xml\n",
-                                    encoding="utf-8")
+    (out / "robots.txt").write_text(seo.robots(site["url"], data["seo"]["noindex_paths"]), encoding="utf-8")
+    other = [l for l in languages if l != default]
+    (out / "llms.txt").write_text(
+        seo.llms_txt(c, f"{site['url']}{_prefix(other[0], default)}/" if other else None), encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
     log.info("Wrote %d pages to %s (heatmap: %s, posts: %d)",
              len(written), out, "yes" if calendar else "no", len(posts))

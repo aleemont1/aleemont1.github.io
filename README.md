@@ -16,6 +16,8 @@ the activity heatmap and the latest posts from [blog.aleemont.dev](https://blog.
 | `src/build.py` | The build: renders every page, sitemap, robots.txt and 404 |
 | `src/activity.py` | GitHub contribution calendar → inline SVG in the site's palette |
 | `src/feed.py` | Latest posts from the blog's RSS feed |
+| `src/seo.py` | JSON-LD, `robots.txt` (keeps the CVs out of search) and `/llms.txt` |
+| `site/assets/og/` | 1200×630 preview images for shared links |
 | `tests/` | Unit tests and fixtures; CI runs them before every build |
 
 ## Editing content

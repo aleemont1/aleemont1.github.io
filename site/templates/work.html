@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% import "_macros.html" as m with context %}
-{% block title %}{{ project.title }} · {{ c.site.name }}{% endblock %}
-{% block description %}{{ project.summary }}{% endblock %}
+{% block title %}{{ project.title }}: {{ project.subtitle }} · {{ c.site.name }}{% endblock %}
+{% block description %}{{ project.detail.get("seo_description", project.summary) }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}{{ project.detail.get("og_image", c.site.og_image) }}{% endblock %}
+{% block og_alt %}{{ project.title }}: {{ project.subtitle }}{% endblock %}
 {% block main %}
 <article class="case">
   <p><a class="back" href="{{ prefix }}/#work">← {{ ui.back }}</a></p>
