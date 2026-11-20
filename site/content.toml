@@ -32,7 +32,8 @@ same_as = ["https://github.com/aleemont1", "https://www.linkedin.com/in/ale-mont
 alumni_of = "University of Bologna"
 knows_about = ["Embedded software", "C++", "ESP32", "FreeRTOS", "LoRa", "Rocket avionics", "Telemetry", "Distributed systems"]
 # Served under this domain by other repositories (GitHub project pages), but
-# not meant to show up in search results: robots.txt disallows them.
+# not meant to show up in search results: robots.txt blocks everything under
+# them except the landing page, which has its own noindex meta.
 noindex_paths = ["/curriculum-vitae/", "/one-page-cv/"]
 
 # Interface strings
