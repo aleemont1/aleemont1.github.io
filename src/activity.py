@@ -60,6 +60,10 @@ class Calendar:
     total: int
     weeks: list[list[Day]]
 
+    @property
+    def active_days(self) -> int:
+        return sum(1 for week in self.weeks for day in week if day.count > 0)
+
 
 def fetch(login: str, token: str, timeout: float = 20) -> dict:
     response = requests.post(
@@ -112,7 +116,7 @@ def render_svg(calendar: Calendar, ui: dict, lang: str) -> str:
     height = TOP + 7 * step - GAP
     parts = [
         f'<svg class="heatmap" viewBox="0 0 {width} {height}" width="{width}" height="{height}" '
-        f'role="img" aria-label="{escape(ui["contributions"].format(n=calendar.total))}">'
+        f'role="img" aria-label="{escape(ui["contributions"].format(n=calendar.total, days=calendar.active_days))}">'
     ]
 
     last_month = None

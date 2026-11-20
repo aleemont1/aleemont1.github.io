@@ -35,7 +35,7 @@ class ContentTest(unittest.TestCase):
 
 class ActivityTest(unittest.TestCase):
     UI = {
-        "contributions": "{n} contributions",
+        "contributions": "{n} contributions, {days} days",
         "contributions_cell": "{n} on {date}",
         "contributions_cell_one": "1 on {date}",
         "contributions_cell_none": "none on {date}",
@@ -49,7 +49,7 @@ class ActivityTest(unittest.TestCase):
         days = sum(len(w) for w in cal.weeks)
         svg = activity.render_svg(cal, self.UI, "en")
         self.assertEqual(svg.count("<rect"), days)
-        self.assertIn(f'aria-label="{cal.total} contributions"', svg)
+        self.assertIn(f'aria-label="{cal.total} contributions, {cal.active_days} days"', svg)
         self.assertRegex(svg, r'class="l[0-4]"')
 
     def test_sunday_is_first_row(self):
@@ -102,7 +102,7 @@ class BuildTest(unittest.TestCase):
         cls.tmp.cleanup()
 
     def test_pages_for_every_language(self):
-        for page in ["index.html", "it/index.html", "work/atlas/index.html", "it/work/lamp/index.html", "404.html"]:
+        for page in ["index.html", "it/index.html", "work/aurora-rocketry/index.html", "it/work/lamp/index.html", "404.html"]:
             self.assertIn(page, self.pages)
         for extra in ["CNAME", "sitemap.xml", "robots.txt", "assets/style.css", "assets/favicon.svg"]:
             self.assertTrue((self.out / extra).exists(), extra)
@@ -112,7 +112,7 @@ class BuildTest(unittest.TestCase):
         it = (self.out / "it" / "index.html").read_text()
         self.assertIn('<html lang="en">', en)
         self.assertIn('<html lang="it">', it)
-        self.assertIn("Progetti principali", it)
+        self.assertIn("Altre cose che ho costruito", it)
         self.assertIn('class="heatmap"', en)
         self.assertIn("Re-learning C without an IDE", en)
 
@@ -132,6 +132,14 @@ class BuildTest(unittest.TestCase):
                     ids = _Links()
                     ids.feed(target.read_text())
                     self.assertIn(anchor, ids.ids, f"{rel}: missing anchor {href}")
+
+    def test_images_exist_and_have_alt_text(self):
+        for rel in self.pages:
+            html = (self.out / rel).read_text()
+            for tag in re.findall(r"<img [^>]*>", html):
+                self.assertRegex(tag, r'alt="[^"]+"', f"{rel}: image without alt text")
+                for src in re.findall(r'(/assets/img/[^" ,]+)', tag):
+                    self.assertTrue((self.out / src.lstrip("/")).exists(), f"{rel}: missing {src}")
 
     def test_offline_build_drops_optional_sections(self):
         with tempfile.TemporaryDirectory() as tmp:

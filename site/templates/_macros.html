@@ -1,28 +1,15 @@
-{# Shared pieces: link rows, tags, diagrams and charts. #}
-
-{% macro tags(items) %}
-<ul class="tags">{% for t in items %}<li>{{ t }}</li>{% endfor %}</ul>
-{% endmacro %}
+{# Shared pieces: link rows, diagrams and charts. #}
 
 {% macro project_links(project, ui, icon, prefix, with_detail=true) %}
-<div class="link-row">
-  {% if with_detail and project.detail is defined %}
-  <a class="btn" href="{{ prefix }}/work/{{ project.slug }}/">{{ ui.read_case }} {{ icon['arrow-right'] }}</a>
-  {% endif %}
-  {% for link in project.links | default([]) %}
-  <a class="btn btn-ghost" href="{{ link.url }}">
-    {% if link.kind == 'code' %}{{ icon['github-logo'] }}{% else %}{{ icon['file-pdf'] }}{% endif %}
-    {{ ui[link.kind] }}
-  </a>
-  {% endfor %}
-  {% if project.get("private") %}
-  <span class="private">{{ icon['lock-simple'] }} {{ ui.code_private }}</span>
-  {% endif %}
-</div>
+<p class="links">
+  {% if with_detail and project.detail is defined %}<a href="{{ prefix }}/work/{{ project.slug }}/">{{ ui.details }} →</a>{% endif %}
+  {% for link in project.get("links", []) %}<a href="{{ link.url }}">{{ ui[link.kind] }}</a>{% endfor %}
+  {% if project.get("private") %}<span class="muted">{{ ui.code_private }}</span>{% endif %}
+</p>
 {% endmacro %}
 
-{# Atlas: the 12 flight states, grouped by phase. #}
-{% macro atlas_diagram(lang, compact=false) %}
+{# The 12 flight states (Nemesis flight software), grouped by phase. #}
+{% macro flight_states_diagram(lang, caption, compact=false) %}
 {% set phases = [
   ({'en': 'Ground', 'it': 'A terra'}, ['INACTIVE', 'CALIBRATING', 'GROUND_SERVICES', 'READY_FOR_LAUNCH']),
   ({'en': 'Flight', 'it': 'Volo'}, ['LAUNCH', 'ACCELERATED_FLIGHT', 'BALLISTIC_FLIGHT', 'APOGEE']),
@@ -35,44 +22,38 @@
     <p class="fsm-label">{{ name[lang] }}</p>
     <ol class="fsm-states" start="{{ n.i }}">
       {% for s in states %}
-      <li{% if s == 'APOGEE' %} class="key"{% endif %}><span class="fsm-n">{{ '%02d' | format(n.i) }}</span>{{ s | replace('_', ' ') | lower }}</li>
+      <li{% if s == 'APOGEE' %} class="key"{% endif %}><span class="fsm-n">{{ n.i }}</span>{{ s | replace('_', ' ') | lower }}</li>
       {% set n.i = n.i + 1 %}
       {% endfor %}
     </ol>
   </div>
   {% endfor %}
-  {% if not compact %}
-  <figcaption>{{ {'en': 'The flight state machine. Recovery fires on entering apogee; every state runs only the FreeRTOS tasks it needs.', 'it': "La macchina a stati del volo. Il recupero scatta all'ingresso in apogeo; ogni stato esegue solo i task FreeRTOS che gli servono."}[lang] }}</figcaption>
-  {% endif %}
+  <figcaption>{{ caption }}</figcaption>
 </figure>
 {% endmacro %}
 
-{# LAMP: frame layout, and one burst with SACK against Stop-and-Wait. #}
-{% macro lamp_diagram(lang, compact=false) %}
+{# LAMP: frame layout, and one burst with SACK against stop-and-wait. #}
+{% macro lamp_diagram(lang, caption, compact=false) %}
 <figure class="diagram lamp{{ ' compact' if compact }}">
-  <div class="frame" role="img" aria-label="{{ {'en': 'LAMP chunk: 9-byte logical header, payload, 2-byte CRC-16', 'it': 'Pezzo LAMP: header logico di 9 byte, payload, CRC-16 di 2 byte'}[lang] }}">
-    <span class="f-hdr">header <b>9 B</b></span>
+  <div class="frame" role="img" aria-label="{{ {'en': 'LAMP chunk: 9-byte header, payload, 2-byte CRC-16', 'it': 'Pezzo LAMP: header di 9 byte, payload, CRC-16 di 2 byte'}[lang] }}">
+    <span class="f-hdr">header 9 B</span>
     <span class="f-pay">payload</span>
-    <span class="f-crc">crc16 <b>2 B</b></span>
+    <span class="f-crc">crc16 2 B</span>
   </div>
-  <div class="timeline">
-    <p class="tl-label">Stop-and-Wait</p>
-    <div class="tl-row" aria-label="{{ {'en': 'Stop-and-Wait: one acknowledgment after every chunk', 'it': 'Stop-and-Wait: una conferma dopo ogni pezzo'}[lang] }}" role="img">
-      {% for i in range(6) %}<span class="d">{{ i }}</span><span class="a">ack</span>{% endfor %}
-    </div>
-    <p class="tl-label">LAMP · SACK-ARQ</p>
-    <div class="tl-row" role="img" aria-label="{{ {'en': 'LAMP: a burst of chunks, one selective acknowledgment bitmap, then only the missing chunk is resent', 'it': 'LAMP: una raffica di pezzi, una sola bitmap di conferme selettive, poi solo il pezzo mancante viene ritrasmesso'}[lang] }}">
-      {% for i in range(8) %}<span class="d{{ ' lost' if i == 3 }}">{{ i }}</span>{% endfor %}<span class="a sack">sack 11101111</span><span class="d re">3</span>
-    </div>
+  <p class="tl-label">stop-and-wait</p>
+  <div class="tl-row" role="img" aria-label="{{ {'en': 'Stop-and-wait: an acknowledgment after every chunk', 'it': 'Stop-and-wait: una conferma dopo ogni pezzo'}[lang] }}">
+    {% for i in range(6) %}<span class="d">{{ i }}</span><span class="a">ack</span>{% endfor %}
   </div>
-  {% if not compact %}
-  <figcaption>{{ {'en': 'Above, one chunk on the air. Below, the same transfer with an acknowledgment per chunk versus one bitmap per burst: chunk 3 is lost, and only chunk 3 is sent again.', 'it': 'In alto, un pezzo in trasmissione. Sotto, lo stesso trasferimento con una conferma per pezzo e con una bitmap per raffica: il pezzo 3 va perso, e viene ritrasmesso solo quello.'}[lang] }}</figcaption>
-  {% endif %}
+  <p class="tl-label">LAMP</p>
+  <div class="tl-row" role="img" aria-label="{{ {'en': 'LAMP: eight chunks, chunk 3 lost, one bitmap acknowledgment, then only chunk 3 is resent', 'it': 'LAMP: otto pezzi, il 3 va perso, una sola bitmap di conferma, poi viene ritrasmesso solo il 3'}[lang] }}">
+    {% for i in range(8) %}<span class="d{{ ' lost' if i == 3 }}">{{ i }}</span>{% endfor %}<span class="a sack">sack 11101111</span><span class="d re">3</span>
+  </div>
+  <figcaption>{{ caption }}</figcaption>
 </figure>
 {% endmacro %}
 
-{% macro diagram(name, lang, compact=false) %}
-{% if name == 'atlas' %}{{ atlas_diagram(lang, compact) }}{% elif name == 'lamp' %}{{ lamp_diagram(lang, compact) }}{% endif %}
+{% macro diagram(name, lang, caption, compact=false) %}
+{% if name == 'flight-states' %}{{ flight_states_diagram(lang, caption, compact) }}{% elif name == 'lamp' %}{{ lamp_diagram(lang, caption, compact) }}{% endif %}
 {% endmacro %}
 
 {# Horizontal bar chart in HTML: labels and values are real text. #}
@@ -81,7 +62,7 @@
   <figcaption class="chart-title">{{ chart.title }}</figcaption>
   <div class="bars">
     {% for bar in chart.bars %}
-    <div class="bar-row{{ ' hl' if bar.highlight }}" title="{{ bar.label }}: {{ num(bar.value) }} {{ chart.unit }}">
+    <div class="bar-row{{ ' hl' if bar.highlight }}">
       <span class="bar-label">{{ bar.label }}</span>
       <span class="bar-track"><span class="bar" style="--w: {{ (bar.value / chart.max * 100) | round(2) }}%"></span></span>
       <span class="bar-value">{{ num(bar.value) }} {{ chart.unit }}</span>
@@ -89,5 +70,25 @@
     {% endfor %}
   </div>
   <p class="chart-note">{{ chart.note }}</p>
+</figure>
+{% endmacro %}
+
+{# A photo with srcset. `img` comes from content.toml: file, widths, w, h, alt, caption. #}
+{% macro photo(img, cls='', eager=false) %}
+<figure class="photo {{ cls }}{{ ' portrait' if img.h > img.w and 'banner' not in cls }}">
+  <img src="/assets/img/{{ img.file }}-{{ img.widths[-1] }}.webp"
+       {% if img.widths | length > 1 %}srcset="{% for w in img.widths %}/assets/img/{{ img.file }}-{{ w }}.webp {{ w }}w{{ ', ' if not loop.last }}{% endfor %}" sizes="(max-width: 46rem) 100vw, 43.5rem"{% endif %}
+       width="{{ img.w }}" height="{{ img.h }}" alt="{{ img.alt }}" {% if not eager %}loading="lazy" {% endif %}decoding="async">
+  <figcaption>{{ img.caption }}</figcaption>
+</figure>
+{% endmacro %}
+
+{# Two or more photos side by side, with one caption. #}
+{% macro gallery(imgs, caption) %}
+<figure class="gallery">
+  <div class="gallery-row">
+    {% for img in imgs %}<img src="/assets/img/{{ img.file }}-{{ img.widths[-1] }}.webp" width="{{ img.w }}" height="{{ img.h }}" alt="{{ img.alt }}" loading="lazy" decoding="async">{% endfor %}
+  </div>
+  <figcaption>{{ caption }}</figcaption>
 </figure>
 {% endmacro %}
