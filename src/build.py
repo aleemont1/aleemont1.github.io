@@ -16,6 +16,8 @@ import logging
 import os
 import re
 import shutil
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
@@ -45,6 +47,16 @@ def _number(value: float, lang: str) -> str:
 
 def _prefix(lang: str, default: str) -> str:
     return "" if lang == default else f"/{lang}"
+
+
+def _content_date() -> str | None:
+    """Date of the last commit that touched the site's content or code (for <lastmod>)."""
+    try:
+        run = subprocess.run(["git", "log", "-1", "--format=%cs", "--", "site", "src"],
+                             cwd=ROOT, capture_output=True, text=True, check=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return run.stdout.strip() or None
 
 
 def _write(out: Path, rel: str, html: str) -> None:
@@ -132,7 +144,18 @@ def build(out: Path, offline: bool = False, activity_json: str | None = None,
     _write(out, "404.html", env.get_template("404.html").render(**common, path="/404", alternates={}, jsonld=None))
     written.append("404.html")
 
-    urls = [site["url"] + _prefix(l, default) + p for l in languages for p in pages]
+    # The home page changes every day (heatmap, latest posts); the case studies when the content does.
+    changed = _content_date()
+    today = datetime.now(timezone.utc).date().isoformat()
+    urls = [
+        {
+            "loc": site["url"] + _prefix(l, default) + p,
+            "lastmod": today if p == "/" and (calendar or posts) else changed,
+            "alternates": {m: site["url"] + _prefix(m, default) + p for m in languages},
+            "default": site["url"] + _prefix(default, default) + p,
+        }
+        for l in languages for p in pages
+    ]
     sitemap = env.get_template("sitemap.xml").render(urls=urls)
     (out / "sitemap.xml").write_text(sitemap, encoding="utf-8")
     (out / "robots.txt").write_text(seo.robots(site["url"], data["seo"]["noindex_paths"]), encoding="utf-8")

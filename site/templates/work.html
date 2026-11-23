@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "_macros.html" as m with context %}
-{% block title %}{{ project.title }}: {{ project.subtitle }} · {{ c.site.name }}{% endblock %}
+{% block title %}{{ project.detail.get("seo_title", project.title ~ ": " ~ project.subtitle) }} · {{ c.site.name }}{% endblock %}
 {% block description %}{{ project.detail.get("seo_description", project.summary) }}{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_image %}{{ project.detail.get("og_image", c.site.og_image) }}{% endblock %}

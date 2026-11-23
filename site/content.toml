@@ -22,7 +22,7 @@ blog = "https://blog.aleemont.dev"
 source = "https://github.com/aleemont1/aleemont1.github.io"
 cv = { en = "https://aleemont1.github.io/curriculum-vitae/resume.pdf", it = "https://aleemont1.github.io/curriculum-vitae/resume-it.pdf" }
 role = { en = "Embedded software engineer", it = "Embedded software engineer" }
-description = { en = "Alessandro Monticelli writes embedded software: flight software for student rockets and a LoRa transport protocol.", it = "Alessandro Monticelli scrive software embedded: il software di volo di razzi universitari e un protocollo di trasporto su LoRa." }
+description = { en = "Alessandro Monticelli is an embedded software engineer: flight software for student rockets at Aurora Rocketry and LAMP, a LoRa transport protocol.", it = "Alessandro Monticelli, embedded software engineer: il software di volo dei razzi universitari di Aurora Rocketry e un protocollo di trasporto su LoRa." }
 og_image = "/assets/og/default.jpg"
 og_alt = { en = "Alessandro Monticelli, embedded software engineer", it = "Alessandro Monticelli, embedded software engineer" }
 
@@ -152,7 +152,8 @@ links = [
 
 [projects.detail]
 og_image = "/assets/og/aurora-rocketry.jpg"
-seo_description = { en = "Flight software and LoRa telemetry for Aurora Rocketry's Borealis and Nemesis rockets: flight computer, Kalman filter, state machine, EuRoC 2025.", it = "Software di volo e telemetria LoRa per i razzi Borealis e Nemesis di Aurora Rocketry: flight computer, filtro di Kalman, macchina a stati, EuRoC 2025." }
+seo_title = { en = "Aurora Rocketry flight software", it = "Software di volo Aurora Rocketry" }
+seo_description = { en = "Flight software and LoRa telemetry for Aurora Rocketry's Borealis and Nemesis rockets: ESP32-S3 flight computer, Kalman filter, state machine, EuRoC 2025.", it = "Software di volo e telemetria LoRa per i razzi Borealis e Nemesis di Aurora Rocketry: flight computer ESP32-S3, filtro di Kalman, macchina a stati, EuRoC 2025." }
 meta = { en = "Avionics software project manager · Borealis (2024) and Nemesis (2025) · team of 7", it = "Project manager del software di avionica · Borealis (2024) e Nemesis (2025) · team di 7 persone" }
 banner = { file = "nemesis-launch", widths = [800, 1400], w = 1400, h = 1729, alt = { en = "Nemesis lifting off from a tall launch tower, with a long white plume, in front of a pine forest", it = "Nemesis che decolla da una torre di lancio, con una lunga scia bianca, davanti a una pineta" }, caption = { en = "Nemesis lifting off at EuRoC 2025.", it = "Il decollo di Nemesis a EuRoC 2025." } }
 intro = { en = [
@@ -234,7 +235,7 @@ links = [
 
 [projects.detail]
 og_image = "/assets/og/lamp.jpg"
-seo_description = { en = "LAMP, a transport protocol for bulk data over LoRa with one selective acknowledgment per burst: +22–35% urban range over stop-and-wait in ns-3.", it = "LAMP, protocollo di trasporto per tanti dati su LoRa con una sola conferma selettiva per raffica: +22–35% di portata urbana sullo stop-and-wait in ns-3." }
+seo_description = { en = "LAMP, a transport protocol for bulk data over LoRa with one selective acknowledgment per burst: +22–35% urban range over stop-and-wait in ns-3 simulations.", it = "LAMP, protocollo di trasporto per tanti dati su LoRa con una sola conferma selettiva per raffica: +22–35% di portata urbana sullo stop-and-wait in ns-3." }
 diagram = "lamp"
 meta = { en = "Research with Prof. Andrea Piroddi, University of Bologna · July 2025 – now", it = "Ricerca con il Prof. Andrea Piroddi, Università di Bologna · luglio 2025 – oggi" }
 intro = { en = [

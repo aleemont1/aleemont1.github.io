@@ -28,6 +28,17 @@ def person(c: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def website(c: dict[str, Any]) -> dict[str, Any]:
+    site = c["site"]
+    return {
+        "@type": "WebSite",
+        "@id": f"{site['url']}/#website",
+        "url": site["url"] + "/",
+        "name": site["name"],
+        "author": {"@id": _person_id(site["url"])},
+    }
+
+
 def home(c: dict[str, Any], url: str, lang: str) -> dict[str, Any]:
     site = c["site"]
     return {
@@ -42,13 +53,7 @@ def home(c: dict[str, Any], url: str, lang: str) -> dict[str, Any]:
                 "mainEntity": {"@id": _person_id(site["url"])},
             },
             person(c),
-            {
-                "@type": "WebSite",
-                "@id": f"{site['url']}/#website",
-                "url": site["url"] + "/",
-                "name": site["name"],
-                "author": {"@id": _person_id(site["url"])},
-            },
+            website(c),
         ],
     }
 
@@ -67,6 +72,8 @@ def project(c: dict[str, Any], p: dict[str, Any], url: str, home_url: str, lang:
         "inLanguage": lang,
         "image": site["url"] + detail.get("og_image", site["og_image"]),
         "author": {"@id": _person_id(site["url"])},
+        "isPartOf": {"@id": f"{site['url']}/#website"},
+        "mainEntityOfPage": url,
         "keywords": p["stack"],
     }
     if code:
@@ -76,6 +83,7 @@ def project(c: dict[str, Any], p: dict[str, Any], url: str, home_url: str, lang:
         "@graph": [
             work,
             person(c),
+            website(c),
             {
                 "@type": "BreadcrumbList",
                 "itemListElement": [

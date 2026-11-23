@@ -167,6 +167,25 @@ class BuildTest(unittest.TestCase):
             if "/work/" in rel:
                 self.assertTrue(any(n["@type"] == "BreadcrumbList" for n in graph), rel)
 
+    def test_titles_and_descriptions_fit_search_results(self):
+        for rel in self.pages:
+            if rel == "404.html":
+                continue
+            html = (self.out / rel).read_text()
+            title = re.search(r"<title>(.*?)</title>", html).group(1)
+            desc = re.search(r'<meta name="description" content="(.*?)">', html).group(1)
+            self.assertLessEqual(len(title), 60, f"{rel}: title is {len(title)} characters")
+            self.assertTrue(120 <= len(desc) <= 160, f"{rel}: description is {len(desc)} characters")
+            for tag in ("twitter:title", "twitter:description"):
+                self.assertIn(f'<meta name="{tag}"', html, f"{rel}: {tag}")
+
+    def test_sitemap_has_lastmod_and_language_alternates(self):
+        sitemap = (self.out / "sitemap.xml").read_text()
+        self.assertEqual(sitemap.count("<url>"), 6)
+        self.assertRegex(sitemap, r"<lastmod>\d{4}-\d{2}-\d{2}</lastmod>")
+        self.assertIn('hreflang="it" href="https://aleemont.dev/it/work/lamp/"', sitemap)
+        self.assertIn('hreflang="x-default" href="https://aleemont.dev/work/lamp/"', sitemap)
+
     def test_llms_txt_lists_projects_without_cvs(self):
         text = (self.out / "llms.txt").read_text()
         self.assertTrue(text.startswith("# Alessandro Monticelli"))
