@@ -30,6 +30,7 @@ og_alt = { en = "Alessandro Monticelli, embedded software engineer", it = "Aless
 [seo]
 same_as = ["https://github.com/aleemont1", "https://www.linkedin.com/in/ale-mont/", "https://blog.aleemont.dev"]
 alumni_of = "University of Bologna"
+works_for = "S.EL.E.D. Soc. Coop."
 knows_about = ["Embedded software", "C++", "ESP32", "FreeRTOS", "LoRa", "Rocket avionics", "Telemetry", "Distributed systems"]
 # Served under this domain by other repositories (GitHub project pages), but
 # not meant to show up in search results: robots.txt blocks everything under
@@ -126,11 +127,11 @@ not_found_home = "Torna alla home"
 body = { en = [
   "I write embedded software: mostly C++ on ESP32s, mostly for things that are supposed to fly.",
   "I was the project manager of the avionics software for the first two rockets of Aurora Rocketry, the University of Bologna's student rocketry team, and I do research on moving large amounts of data over LoRa without wasting airtime. I'm doing an MSc in Computer Science and Engineering in Bologna, and I spent the spring of 2026 on Erasmus in Reykjavík.",
-  "During the day I'm a software developer at a company that makes enterprise software. Not as thrilling as rockets, I know. The long-term plan is to have some code of mine running in space before I turn 32.",
+  "During the day I'm a software developer at SELED, building software for large Italian agri-food and logistics companies. Not as thrilling as rockets, I know. The long-term plan is to have some code of mine running in space before I turn 32.",
 ], it = [
   "Scrivo software embedded: per lo più C++ su ESP32, per lo più per cose che dovrebbero volare.",
   "Sono stato il project manager del software di avionica per i primi due razzi di Aurora Rocketry, il team studentesco di razzi dell'Università di Bologna, e faccio ricerca su come trasferire tanti dati su LoRa senza sprecare tempo in aria. Frequento la magistrale in Ingegneria e Scienze Informatiche a Bologna, e ho passato la primavera del 2026 in Erasmus a Reykjavík.",
-  "Di giorno faccio lo sviluppatore in un'azienda che produce software gestionale. Meno emozionante dei razzi, lo so. Il piano a lungo termine è avere del codice mio in orbita prima dei 32 anni.",
+  "Di giorno faccio lo sviluppatore in SELED, dove costruisco software per grandi realtà italiane dell'agroalimentare e della logistica. Meno emozionante dei razzi, lo so. Il piano a lungo termine è avere del codice mio in orbita prima dei 32 anni.",
 ] }
 
 # ---------------------------------------------------------------------------
@@ -340,8 +341,9 @@ bars = [
 [[experience]]
 period = { en = "2026 – now", it = "2026 – oggi" }
 role = "Software Developer"
-org = { en = "Enterprise software company", it = "Azienda di software gestionale" }
-text = { en = "Search and question answering over company documents, in Python and PostgreSQL.", it = "Ricerca e risposte su documenti aziendali, in Python e PostgreSQL." }
+org = "S.EL.E.D. Soc. Coop., Faenza"
+text = { en = "Software for Caviro, Agrintesa and other large Italian agri-food and logistics companies. I designed and built RagCore, a RAG engine that answers questions on company documents, from Caviro's contracts (0.948 hit@1 on clause search) to Agrintesa's lab analyses, behind Microsoft Entra ID and without giving the LLM direct access to the database. I also cut the API costs of Agrintesa's lab-analysis pipeline 15x with Claude Haiku and prompt caching, and led the move of several hundred GB of Caviro documents to SharePoint.", it = "Software per Caviro, Agrintesa e altre grandi realtà italiane dell'agroalimentare e della logistica. Ho progettato e realizzato RagCore, un motore RAG che risponde a domande sui documenti aziendali, dai contratti Caviro (hit@1 di 0,948 nella ricerca sulle clausole) alle analisi di laboratorio Agrintesa, dietro Microsoft Entra ID e senza dare all'LLM accesso diretto al database. Ho anche ridotto di 15 volte i costi API della pipeline delle analisi Agrintesa con Claude Haiku e il prompt caching, e guidato la migrazione su SharePoint di diverse centinaia di GB di documenti Caviro." }
+stack = ["Python", "FastAPI", "PostgreSQL (pgvector)", "Angular", "Claude API", "Power Platform"]
 
 [[experience]]
 period = { en = "2026 – now", it = "2026 – oggi" }

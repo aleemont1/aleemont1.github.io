@@ -49,6 +49,7 @@
       <div>
         <p class="row-head"><strong>{{ e.role }}</strong>, {{ e.org }}</p>
         <p class="row-text">{{ e.text }}{% if e.get("link") %} <a href="{{ prefix }}/work/{{ e.link }}/">{{ ui.details }}</a>{% endif %}</p>
+        {% if e.get("stack") %}<p class="stack">{{ e.stack | join(' · ') }}</p>{% endif %}
       </div>
     </li>
     {% endfor %}

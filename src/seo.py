@@ -24,6 +24,7 @@ def person(c: dict[str, Any]) -> dict[str, Any]:
         "description": site["description"],
         "sameAs": seo["same_as"],
         "alumniOf": {"@type": "CollegeOrUniversity", "name": seo["alumni_of"]},
+        **({"worksFor": {"@type": "Organization", "name": seo["works_for"]}} if seo.get("works_for") else {}),
         "knowsAbout": seo["knows_about"],
     }
 
