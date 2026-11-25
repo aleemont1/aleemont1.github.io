@@ -281,3 +281,5 @@ h3 { font-size: 1.1rem; }
 .photo.banner img { max-height: 44rem; object-fit: cover; }
 .photo.portrait { max-width: 26rem; margin-left: auto; margin-right: auto; }
 .hw .photo.portrait { max-width: none; }
+
+.rows[hidden] { display: none; }

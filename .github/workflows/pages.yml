@@ -5,7 +5,7 @@ on:
     branches: [main]
   pull_request:
   schedule:
-    - cron: "17 3 * * *" # daily: refresh the activity heatmap and blog posts
+    - cron: "17 * * * *" # hourly: refresh the activity heatmap and blog posts (GitHub often delays it)
   workflow_dispatch:
 
 permissions:
