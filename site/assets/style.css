@@ -163,6 +163,7 @@ h3 { font-size: 1.1rem; }
 .rows li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--border); }
 .rows li:last-child { border-bottom: 1px solid var(--border); }
 .rows p { margin: 0; }
+.rows .stack { margin-top: 0.35rem; }
 .row-text { color: var(--muted); font-size: 0.9688rem; }
 .when { padding-top: 0.2rem; font-variant-numeric: tabular-nums; }
 .posts a { color: var(--fg); font-weight: 500; text-decoration: none; }
