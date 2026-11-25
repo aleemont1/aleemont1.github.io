@@ -81,16 +81,31 @@
 <section id="writing">
   <h2>{{ ui.section_writing }}</h2>
   <p>{{ ui.writing_intro }}</p>
-  {% if posts %}
-  <ul class="rows posts">
+  <ul class="rows posts" id="latest-posts" data-feed="{{ c.site.blog }}/rss.xml" data-base="{{ c.site.blog }}"{% if not posts %} hidden{% endif %}>
     {% for p in posts %}
     <li><span class="when">{% if p.date %}<time datetime="{{ p.date.isoformat() }}">{{ p.date.isoformat() }}</time>{% endif %}</span><a href="{{ p.url }}">{{ p.title }}</a></li>
     {% endfor %}
   </ul>
-  {% else %}
-  <p class="muted">{{ ui.writing_empty }}</p>
+  {% if not posts %}
+  <p class="muted" id="latest-empty">{{ ui.writing_empty }}</p>
   {% endif %}
   <p><a href="{{ c.site.blog }}">{{ ui.writing_all }} →</a></p>
+  <script>
+  // L'elenco qui sopra è quello della build (vale senza JavaScript e per i motori di ricerca);
+  // all'apertura lo aggiorno dal feed del blog, così i post nuovi compaiono subito. Se il feed non risponde resta com'è.
+  (function(){var ul=document.getElementById('latest-posts');if(!ul||!window.fetch||!window.DOMParser)return;
+  fetch(ul.dataset.feed,{headers:{Accept:'application/rss+xml, application/xml;q=0.9'}}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(x){
+  var d=new DOMParser().parseFromString(x,'text/xml');if(d.querySelector('parsererror'))throw 0;
+  var base=ul.dataset.base.replace(/\/$/,''),posts=[].map.call(d.querySelectorAll('item'),function(i){
+  var t=(i.querySelector('title')||{}).textContent,l=(i.querySelector('link')||{}).textContent,p=(i.querySelector('pubDate')||{}).textContent,dt=p?new Date(p):null,path;
+  if(!t||!l)return null;try{path=new URL(l.trim()).pathname}catch(e){return null}
+  return{t:t.trim(),u:base+path,d:dt&&!isNaN(dt)?dt.toISOString().slice(0,10):''}}).filter(Boolean);
+  posts.sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});posts=posts.slice(0,4);if(!posts.length)return;
+  ul.textContent='';posts.forEach(function(p){var li=document.createElement('li'),w=document.createElement('span'),a=document.createElement('a');w.className='when';
+  if(p.d){var tm=document.createElement('time');tm.dateTime=p.d;tm.textContent=p.d;w.appendChild(tm)}
+  a.href=p.u;a.textContent=p.t;li.appendChild(w);li.appendChild(a);ul.appendChild(li)});
+  ul.hidden=false;var e=document.getElementById('latest-empty');if(e)e.remove()}).catch(function(){})})();
+  </script>
 </section>
 
 <section id="documents">

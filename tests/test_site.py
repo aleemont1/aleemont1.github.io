@@ -2,6 +2,7 @@ import json
 import re
 import tempfile
 import unittest
+from unittest import mock
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -70,6 +71,20 @@ class FeedTest(unittest.TestCase):
         posts = feed.parse((FIXTURES / "rss.xml").read_text(), "https://blog.aleemont.dev/")
         self.assertEqual([p.title for p in posts], ["Re-learning C without an IDE", "Older post"])
         self.assertEqual(posts[0].url, "https://blog.aleemont.dev/learning-c/")
+
+    def test_load_identifies_itself(self):
+        class Response:
+            text = (FIXTURES / "rss.xml").read_text()
+
+            def raise_for_status(self):
+                pass
+
+        with mock.patch("src.feed.requests.get", return_value=Response()) as get:
+            posts = feed.load("https://blog.aleemont.dev")
+        self.assertTrue(posts)
+        headers = get.call_args.kwargs["headers"]
+        self.assertIn("aleemont", headers["User-Agent"])
+        self.assertNotIn("python-requests", headers["User-Agent"])
 
     def test_unreachable_feed_is_empty(self):
         self.assertEqual(feed.load("https://blog.aleemont.dev", cached="/does/not/exist.xml"), [])

@@ -13,6 +13,13 @@ import requests
 
 log = logging.getLogger(__name__)
 
+# Cloudflare (Browser Integrity Check) rifiuta con 403 i client che si presentano con lo user agent
+# predefinito di una libreria: ne serve uno descrittivo che dica chi siamo.
+HEADERS = {
+    "User-Agent": "aleemont-portfolio-build/1.0 (+https://aleemont.dev)",
+    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
+}
+
 
 @dataclass(frozen=True)
 class Post:
@@ -52,7 +59,7 @@ def load(blog_url: str, cached: str | None = None, timeout: float = 15) -> list[
         if cached:
             with open(cached, encoding="utf-8") as f:
                 return parse(f.read(), blog_url)
-        response = requests.get(blog_url.rstrip("/") + "/rss.xml", timeout=timeout)
+        response = requests.get(blog_url.rstrip("/") + "/rss.xml", timeout=timeout, headers=HEADERS)
         response.raise_for_status()
         return parse(response.text, blog_url)
     except Exception as exc:  # the blog being down must not break the portfolio
