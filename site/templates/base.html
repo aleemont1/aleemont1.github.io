@@ -32,7 +32,10 @@
 <meta name="twitter:description" content="{{ self.description() }}">
 <meta name="author" content="{{ c.site.name }}">
 {% if jsonld %}<script type="application/ld+json">{{ jsonld | tojson }}</script>{% endif %}
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/icon-192.png" type="image/png" sizes="192x192">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/style.css?v={{ css_hash }}">
 <link rel="alternate" type="application/rss+xml" title="Blog" href="{{ c.site.blog }}/rss.xml">

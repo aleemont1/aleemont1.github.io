@@ -156,6 +156,13 @@ class BuildTest(unittest.TestCase):
                 for src in re.findall(r'(/assets/img/[^" ,]+)', tag):
                     self.assertTrue((self.out / src.lstrip("/")).exists(), f"{rel}: missing {src}")
 
+    def test_favicons_for_search_results(self):
+        self.assertTrue((self.out / "favicon.ico").exists())
+        html = (self.out / "index.html").read_text()
+        for href in ["/favicon.ico", "/assets/icon-192.png", "/assets/favicon.svg", "/assets/apple-touch-icon.png"]:
+            self.assertIn(f'href="{href}"', html)
+            self.assertTrue((self.out / href.lstrip("/")).exists(), href)
+
     def test_robots_hides_cvs_and_points_to_sitemap(self):
         robots = (self.out / "robots.txt").read_text()
         self.assertIn("Disallow: /curriculum-vitae/", robots)
