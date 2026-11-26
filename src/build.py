@@ -78,6 +78,8 @@ def build(out: Path, offline: bool = False, activity_json: str | None = None,
     (out / "assets").mkdir(parents=True)
     shutil.copytree(SITE / "assets", out / "assets", dirs_exist_ok=True)
     shutil.copy(ROOT / "CNAME", out / "CNAME")
+    # Google and many tools ask for /favicon.ico at the root before reading <link rel="icon">.
+    shutil.copy(SITE / "assets" / "favicon.ico", out / "favicon.ico")
     css_hash = hashlib.sha256((SITE / "assets" / "style.css").read_bytes()).hexdigest()[:10]
 
     calendar = None
